@@ -341,7 +341,7 @@ function setActiveChapter(chapterName) {
   var featuresList = map.queryRenderedFeatures( { layers: ['centers'] }) || [];
 
     map.flyTo({center:
-featuresList.find(function(a) {return a.properties.id === chapterName}).geometry.coordinates);
+featuresList.find(function(a) {return a.properties.id === chapterName}).geometry.coordinates});
 
  document.getElementById(chapterName).setAttribute('class', 'active');
     document.getElementById(activeChapterName).setAttribute('class', '');
