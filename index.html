@@ -40,7 +40,7 @@
           }
           section:last-child {
               border-bottom: none;
-              margin-bottom: 200px;
+              margin-bottom: 400px;
           }
   
         .usaidpop h3 {
@@ -126,7 +126,7 @@ mapboxgl.accessToken = 'pk.eyJ1IjoidXNhaWRnZW9jZW50ZXIiLCJhIjoiY2lyMjk5eGlkMDMwd
   
 var map = new mapboxgl.Map({
     container: 'map',
-      pitch: 0.01,
+      pitch: 45,
     style: 'mapbox://styles/usaidgeocenter/cj3fzr28f000b2robnl5jfxsh',
     center: [-12, 15],
     zoom: 1.6
@@ -469,8 +469,7 @@ function makeGeoJSON(err, csvData) {
  // On every scroll event, check which element is on screen
 window.onscroll = function() {
   if (!window.isBusyAutoScrolling) {
-     //	querySourceFeatures did not do the right thing here for some reason: was only shown visibile items
-    //var featuresList = map.querySourceFeatures( 'centers' ) || []; 
+     //	querySourceFeatures did not do the right thing here: was only shown visibile items
       var chapterNames = window.rawFeaturesList.map(function(a) {
         return a.properties.id
       });    
@@ -493,8 +492,7 @@ window.onscroll = function() {
 function setActiveChapter(chapterName) {
     if (chapterName === activeChapterName) return;
   
-  //	querySourceFeatures did not do the right thing here for some reason: was only shown visibile items
-  //var featuresList = map.querySourceFeatures( 'centers' ) || [];
+  //	querySourceFeatures did not do the right thing here: was only shown visibile items
 
     map.flyTo({center:
 rawFeaturesList.find(function(a) {return a.properties.id === chapterName}).geometry.coordinates, zoom: 4});
@@ -542,7 +540,6 @@ map.on('click', function (e) {/ *  */
         window.isBusyAutoScrolling=false;
       }, 1050);
       	
-
     }
 
 
