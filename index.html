@@ -264,10 +264,9 @@ function makeGeoJSON(err, csvData) {
             });
           
           var sections = document.getElementById('features');
-  var check = document.getElementById(cleanID(feature.properties.School));
-  if (check === null) {
+
   sections.innerHTML = "<section id='"+cleanID(feature.properties.School)+"'>"+templatize(feature.properties)+"</section>"+sections.innerHTML;
-  }
+ 
         });    
     });
 }
