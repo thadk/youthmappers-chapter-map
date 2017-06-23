@@ -312,6 +312,7 @@ function makeGeoJSON(err, csvData) {
               sections.innerHTML = "<section id='"+feature.properties.id+"'>"
                 +templatize(feature.properties)+"</section>"+sections.innerHTML;
               });
+              window.rawFeaturesList = dataWithID.features
             }
        		}
         if (map.loaded()) {
@@ -372,11 +373,10 @@ function makeGeoJSON(err, csvData) {
 window.onscroll = function() {
   if (!window.isBusyAutoScrolling) {
     var featuresList = map.querySourceFeatures( 'centers' ) || []; 
-    console.log(featuresList);
-
-      var chapterNames = featuresList.map(function(a) {
+      var chapterNames = window.rawFeaturesList.map(function(a) {
         return a.properties.id
       });
+    //console.log(chapterNames)
     
       for (var i = 0; i < chapterNames.length; i++) {
           var chapterName = chapterNames[i];
@@ -393,14 +393,14 @@ window.onscroll = function() {
   }
 };
 
-  var activeChapterName = 'university-of-california-davis';
+  var activeChapterName = 'west-virginia-university';
 function setActiveChapter(chapterName) {
     if (chapterName === activeChapterName) return;
   
   var featuresList = map.querySourceFeatures( 'centers' ) || [];
 
     map.flyTo({center:
-featuresList.find(function(a) {return a.properties.id === chapterName}).geometry.coordinates, zoom: 4});
+rawFeaturesList.find(function(a) {return a.properties.id === chapterName}).geometry.coordinates, zoom: 4});
 
  document.getElementById(chapterName).setAttribute('class', 'active');
     document.getElementById(activeChapterName).setAttribute('class', '');
@@ -413,7 +413,6 @@ function isElementOnScreen(id) {
     var bounds = element.getBoundingClientRect();
     return bounds.top < window.innerHeight && bounds.bottom > 0;
 }
-  
   
   // Use the same approach as below to indicate that the symbols are clickable
 // by changing the cursor style to 'pointer'.
