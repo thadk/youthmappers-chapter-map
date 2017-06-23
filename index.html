@@ -338,9 +338,9 @@ window.onscroll = function() {
   var activeChapterName = 'university-of-california-davis';
 function setActiveChapter(chapterName) {
     if (chapterName === activeChapterName) return;
-  var features = map.queryRenderedFeatures( { layers: ['centers'] }) || [];
+  var featuresList = map.queryRenderedFeatures( { layers: ['centers'] }) || [];
 
-    map.flyTo(features.find(function(a) {return a.properties.id === chapterName}));
+    map.flyTo(featuresList.find(function(a) {return a.properties.id === chapterName}));
 
  document.getElementById(chapterName).setAttribute('class', 'active');
     document.getElementById(activeChapterName).setAttribute('class', '');
