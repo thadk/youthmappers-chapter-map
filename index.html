@@ -265,8 +265,8 @@ function makeGeoJSON(err, csvData) {
           
           var sections = document.getElementById('features');
 
-          if (dataWithID.length) { 
-            dataWithID.map(function (feature) {
+          if (dataWithID.features.length) { 
+            dataWithID.features.map(function (feature) {
     sections.innerHTML = "<section id='"+cleanID(feature.properties.School)+"'>"+templatize(feature.properties)+"</section>"+sections.innerHTML;
 })
                                  }
