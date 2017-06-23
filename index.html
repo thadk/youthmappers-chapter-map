@@ -264,8 +264,9 @@ function makeGeoJSON(err, csvData) {
             });
           
           var sections = document.getElementById('features');
-
-  sections.innerHTML = "<section id='"+cleanID(feature.properties.School)+"'>"+templatize(feature.properties)+"</section>"+sections.innerHTML;
+dataWithID.map(function (feature) {
+    sections.innerHTML = "<section id='"+cleanID(feature.properties.School)+"'>"+templatize(feature.properties)+"</section>"+sections.innerHTML;
+})
  
         });    
     });
