@@ -12,39 +12,36 @@
           z-index: 10000;
         }
         #map {
-          position:absolute;
-          top:0; 
-          bottom:0; 
-          /*width:100%; */
-          /*left: auto;
-          right: 0px;*/
+
         }
         
            #map {
-	position:fixed;
-     width:60%;
-}
-#features {
-    width: 40%;
-    margin-left: 60%;
-    font-family: sans-serif;
-    overflow-y: scroll;
-    background-color: #fafafa;
-}
-section {
-    padding:  25px 50px;
-    line-height: 25px;
-    border-bottom: 1px solid #ddd;
-    opacity: 0.25;
-    font-size: 13px;
-}
-section.active {
-    opacity: 1;
-}
-section:last-child {
-    border-bottom: none;
-    margin-bottom: 200px;
-}
+            position:fixed;
+            width:60%;
+            top:0; 
+            bottom:0; 
+          }
+          #features {
+              width: 40%;
+              margin-left: 60%;
+              font-family: sans-serif;
+              overflow-y: scroll;
+              background-color: #fafafa;
+          }
+          section {
+              padding:  25px 50px;
+              line-height: 25px;
+              border-bottom: 1px solid #ddd;
+              opacity: 0.25;
+              font-size: 13px;
+          }
+          section.active {
+              opacity: 1;
+          }
+          section:last-child {
+              border-bottom: none;
+              margin-bottom: 200px;
+          }
   
         .usaidpop h3 {
           padding: 0;
@@ -210,68 +207,76 @@ function makeGeoJSON(err, csvData) {
           return featureCopy;
          });
       
-        map.on('load', function () {
-						console.log(dataWithID)
-            map.addLayer({
-                'id': 'centers',
-                'type': 'symbol',
-                'source': {
-                    'type': 'geojson',
-                    'data': dataWithID
-                },
-                "layout": {
-                "text-size": 14,
-                "icon-offset": [
-                    0,
-                    0
-                ],
-                "icon-image": "ymmapmarker",
-                "text-font": [
-                    "Avenir LT Std 35 Light",
-                    "Open Sans Regular"
-                ],
-                "icon-allow-overlap": true,
-                "text-padding": 2,
-                "text-offset": [
-                    0,
-                    -0.6
-                ],
-                "icon-size": 0.3,
-                "text-anchor": "bottom",
-                "text-field": {
-                    "base": 1,
-                    "stops": [
-                        [
-                            0,
-                            ""
-                        ],
-                        [
-                            11,
-                            "{School}"
-                        ],
-                        [
-                            22,
-                            "{School}"
-                        ]
-                    ]
-                }
-            },
-            "paint": {
-                "text-halo-color": "hsla(0, 0%, 25%, 0)",
-                "text-halo-blur": 3,
-                "text-color": "hsl(0, 0%, 20%)"
-            }
-            });
-          
-          var sections = document.getElementById('features');
+      	var onDataAndMapLoaded = function () {
+              console.log(dataWithID)
+              map.addLayer({
+                  'id': 'centers',
+                  'type': 'symbol',
+                  'source': {
+                      'type': 'geojson',
+                      'data': dataWithID
+                  },
+                  "layout": {
+                  "text-size": 14,
+                  "icon-offset": [
+                      0,
+                      0
+                  ],
+                  "icon-image": "ymmapmarker",
+                  "text-font": [
+                      "Avenir LT Std 35 Light",
+                      "Open Sans Regular"
+                  ],
+                  "icon-allow-overlap": true,
+                  "text-padding": 2,
+                  "text-offset": [
+                      0,
+                      -0.6
+                  ],
+                  "icon-size": 0.3,
+                  "text-anchor": "bottom",
+                  "text-field": {
+                      "base": 1,
+                      "stops": [
+                          [
+                              0,
+                              ""
+                          ],
+                          [
+                              11,
+                              "{School}"
+                          ],
+                          [
+                              22,
+                              "{School}"
+                          ]
+                      ]
+                  }
+              },
+              "paint": {
+                  "text-halo-color": "hsla(0, 0%, 25%, 0)",
+                  "text-halo-blur": 3,
+                  "text-color": "hsl(0, 0%, 20%)"
+              }
+              });
 
-          if (dataWithID.features.length) { 
-            dataWithID.features.map(function (feature) {
-    sections.innerHTML = "<section id='"+cleanID(feature.properties.School)+"'>"+templatize(feature.properties)+"</section>"+sections.innerHTML;
-})
-                                 }
- 
-        });    
+            var sections = document.getElementById('features');
+
+            if (dataWithID.features.length) { 
+              dataWithID.features.map(function (feature) {
+              sections.innerHTML = "<section id='"+feature.properties.id+"'>"
+                +templatize(feature.properties)+"</section>"+sections.innerHTML;
+              });
+            }
+       		}
+        if (map.loaded()) {
+          onDataAndMapLoaded()
+        } else {
+          map.on('load', onDataAndMapLoaded);            /* end on map load */
+
+        } /* end map loaded conditional */    
+      
+
     });
 }
   
@@ -313,6 +318,7 @@ function makeGeoJSON(err, csvData) {
             "</div>"
            ].join('');
     } else {
+      console.log(props)
       return "Unrecognized"
     }
   }
@@ -341,7 +347,7 @@ function setActiveChapter(chapterName) {
   var featuresList = map.queryRenderedFeatures( { layers: ['centers'] }) || [];
 
     map.flyTo({center:
-featuresList.find(function(a) {return a.properties.id === chapterName}).geometry.coordinates});
+featuresList.find(function(a) {return a.properties.id === chapterName}).geometry.coordinates, zoom: 4});
 
  document.getElementById(chapterName).setAttribute('class', 'active');
     document.getElementById(activeChapterName).setAttribute('class', '');
@@ -377,19 +383,25 @@ var hoverPopup = new mapboxgl.Popup({
   window.pop = hoverPopup;
   // Use the same approach as above to indicate that the symbols are clickable
 // by changing the cursor style to 'pointer'.
-map.on('mousemove', function (e) {/ * layers: ['centers'] */
-    var features = map.queryRenderedFeatures(e.point, {  });
-    if (!features && !features.length) {
+map.on('click', function (e) {/ *  */
+    var features = map.queryRenderedFeatures(e.point, { layers: ['centers']  });
+    var feature = features && features[0] && features[0].properties && features[0].properties.id;
+    if (feature !== undefined) {                           		console.log(feature);
+   $('body,html').animate({
+    scrollTop: $("#"+feature).offset().top
+}, 1000);
+    }
+
+    /*if (!features && !features.length) {
       hoverPopup.remove();
       return;
     }
-    var feature = features[0];
   
-  if (feature && feature.properties && feature.properties.type !== 'country') {	hoverPopup.setLngLat(feature.geometry.coordinates)
+  if (feature && feature.properties && feature.properties.type !== 'country' && feature.properties.type !== 'state') {	hoverPopup.setLngLat(feature.geometry.coordinates)
        .setHTML(templatize(feature.properties))
         .addTo(map);
     map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
-  }
+  }*/
 });
   map.addControl(new mapboxgl.NavigationControl());
 </script>
