@@ -15,10 +15,36 @@
           position:absolute;
           top:0; 
           bottom:0; 
-          width:100%; 
-          left: auto;
-          right: 0px;
+          /*width:100%; */
+          /*left: auto;
+          right: 0px;*/
         }
+        
+           #map {
+	position:fixed;
+     width:60%;
+}
+#features {
+    width: 40%;
+    margin-left: 60%;
+    font-family: sans-serif;
+    overflow-y: scroll;
+    background-color: #fafafa;
+}
+section {
+    padding:  25px 50px;
+    line-height: 25px;
+    border-bottom: 1px solid #ddd;
+    opacity: 0.25;
+    font-size: 13px;
+}
+section.active {
+    opacity: 1;
+}
+section:last-child {
+    border-bottom: none;
+    margin-bottom: 200px;
+}
   
         .usaidpop h3 {
           padding: 0;
@@ -92,6 +118,7 @@
 </head>
 <body>
 <div id='map'></div>
+  <div id="features">&nbsp;</div>
 <script>
   //Raven.config('https://1a6e5463bde24c9ea2a9bf5f11200adb@sentry.io/162393').install()
 
@@ -235,6 +262,12 @@ function makeGeoJSON(err, csvData) {
                 "text-color": "hsl(0, 0%, 20%)"
             }
             });
+          
+          var sections = document.getElementById('features');
+  var check = document.getElementById(cleanID(feature.properties.School));
+  if (check === null) {
+  sections.innerHTML = "<section id='"+cleanID(feature.properties.School)+"'>"+templatize(feature.properties)+"</section>"+sections.innerHTML;
+  }
         });    
     });
 }
@@ -280,6 +313,45 @@ function makeGeoJSON(err, csvData) {
       return "Unrecognized"
     }
   }
+    
+    
+ // On every scroll event, check which element is on screen
+window.onscroll = function() {
+  var features = map.queryRenderedFeatures( { layers: ['centers'] }) || [];
+   
+    var chapterNames = features.map(function(a) {
+      return cleanID(a.properties.School)
+    });
+    for (var i = 0; i < chapterNames.length; i++) {
+        var chapterName = chapterNames[i];
+
+        if (isElementOnScreen(chapterName)) {
+            setActiveChapter(chapterName);
+            break;
+        }
+    }
+};
+
+  var activeChapterName = 'university-of-california-davis';
+function setActiveChapter(chapterName) {
+    if (chapterName === activeChapterName) return;
+  var features = map.queryRenderedFeatures( { layers: ['centers'] }) || [];
+
+    //map.flyTo(chapters[chapterName]);
+
+ document.getElementById(chapterName).setAttribute('class', 'active');
+    document.getElementById(activeChapterName).setAttribute('class', '');
+
+    activeChapterName = chapterName;
+}
+
+function isElementOnScreen(id) {
+    var element = document.getElementById(id) || document.getElementById(activeChapterName);
+  console.log(element)
+    var bounds = element.getBoundingClientRect();
+    return bounds.top < window.innerHeight && bounds.bottom > 0;
+}
+  
  //https://docs.google.com/spreadsheets/d/13yswnN49P0dsO5BS2FJYaVUIjsnuWbzA3UxvhcLUsYI/export?format=csv&id=13yswnN49P0dsO5BS2FJYaVUIjsnuWbzA3UxvhcLUsYI
 
   // Create a popup, but don't add it to the map yet.
