@@ -118,6 +118,7 @@
   <div id="features">&nbsp;</div>
 <script>
   //Raven.config('https://1a6e5463bde24c9ea2a9bf5f11200adb@sentry.io/162393').install()
+window.isBusyAutoScrolling=true;
 
 mapboxgl.accessToken = 'pk.eyJ1IjoidXNhaWRnZW9jZW50ZXIiLCJhIjoiY2lyMjk5eGlkMDMwdWZxbTh4dmx4Z2tvbyJ9.TC7ZUzMtmRYB9aQRFOg2FQ';
   
@@ -323,22 +324,25 @@ function makeGeoJSON(err, csvData) {
     }
   }
     
-    
  // On every scroll event, check which element is on screen
 window.onscroll = function() {
-  var features = map.queryRenderedFeatures( { layers: ['centers'] }) || [];
-   
-    var chapterNames = features.map(function(a) {
-      return cleanID(a.properties.School)
-    });
-    for (var i = 0; i < chapterNames.length; i++) {
-        var chapterName = chapterNames[i];
+  if (!window.isBusyAutoScrolling) {
+    var features = map.queryRenderedFeatures( { layers: ['centers'] }) || [];
 
-        if (isElementOnScreen(chapterName)) {
-            setActiveChapter(chapterName);
-            break;
-        }
-    }
+      var chapterNames = features.map(function(a) {
+        return cleanID(a.properties.School)
+      });
+      for (var i = 0; i < chapterNames.length; i++) {
+          var chapterName = chapterNames[i];
+
+          if (isElementOnScreen(chapterName)) {
+              setActiveChapter(chapterName);
+              break;
+          } else if (window.isBusyAutoScrolling) {
+            console.log('was scrolling, skipped active chapter');
+          }
+      }
+  }
 };
 
   var activeChapterName = 'university-of-california-davis';
@@ -393,10 +397,18 @@ var hoverPopup = new mapboxgl.Popup({
 map.on('click', function (e) {/ *  */
     var features = map.queryRenderedFeatures(e.point, { layers: ['centers']  });
     var feature = features && features[0] && features[0].properties && features[0].properties.id;
-    if (feature !== undefined) {                           		console.log(feature);
-   $('body,html').animate({
-    scrollTop: $("#"+feature).offset().top
+    if (feature !== undefined) {  
+     	window.isBusyAutoScrolling=true;
+      console.log(feature);
+   		$('body,html').animate({
+    		scrollTop: $("#"+feature).offset().top
 }, 1000);
+      setActiveChapter(feature);
+      window.setTimeout(function() {
+        window.isBusyAutoScrolling=false;
+      }, 1050)
+      	
+
     }
     map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
 
