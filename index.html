@@ -381,6 +381,13 @@ var hoverPopup = new mapboxgl.Popup({
     offsets: popupOffsets
 });
   window.pop = hoverPopup;
+  
+  map.on('mousemove', function (e) {/ *  */
+    var features = map.queryRenderedFeatures(e.point, { layers: ['centers']  });
+    map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
+
+  }
+  
   // Use the same approach as above to indicate that the symbols are clickable
 // by changing the cursor style to 'pointer'.
 map.on('click', function (e) {/ *  */
@@ -391,6 +398,8 @@ map.on('click', function (e) {/ *  */
     scrollTop: $("#"+feature).offset().top
 }, 1000);
     }
+    map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
+
 
     /*if (!features && !features.length) {
       hoverPopup.remove();
@@ -400,7 +409,6 @@ map.on('click', function (e) {/ *  */
   if (feature && feature.properties && feature.properties.type !== 'country' && feature.properties.type !== 'state') {	hoverPopup.setLngLat(feature.geometry.coordinates)
        .setHTML(templatize(feature.properties))
         .addTo(map);
-    map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
   }*/
 });
   map.addControl(new mapboxgl.NavigationControl());
