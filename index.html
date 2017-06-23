@@ -104,8 +104,8 @@
           display: inline;
         }
     </style>
-    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.36.0/mapbox-gl.js'></script>
-    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.36.0/mapbox-gl.css' rel='stylesheet' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.css' rel='stylesheet' />
       <script src='csv2geojson.js'></script>
 
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
@@ -371,16 +371,19 @@ function makeGeoJSON(err, csvData) {
  // On every scroll event, check which element is on screen
 window.onscroll = function() {
   if (!window.isBusyAutoScrolling) {
-    var features = map.queryRenderedFeatures( { layers: ['centers'] }) || [];
+    var featuresList = map.querySourceFeatures( 'centers' ) || []; 
+    console.log(featuresList);
 
-      var chapterNames = features.map(function(a) {
-        return cleanID(a.properties.School)
+      var chapterNames = featuresList.map(function(a) {
+        return a.properties.id
       });
     
       for (var i = 0; i < chapterNames.length; i++) {
           var chapterName = chapterNames[i];
 
           if (isElementOnScreen(chapterName)) {
+              console.log(chapterName,"is on screen");
+
               setActiveChapter(chapterName);
               break;
           }
@@ -393,7 +396,8 @@ window.onscroll = function() {
   var activeChapterName = 'university-of-california-davis';
 function setActiveChapter(chapterName) {
     if (chapterName === activeChapterName) return;
-  var featuresList = map.queryRenderedFeatures( { layers: ['centers'] }) || [];
+  
+  var featuresList = map.querySourceFeatures( 'centers' ) || [];
 
     map.flyTo({center:
 featuresList.find(function(a) {return a.properties.id === chapterName}).geometry.coordinates, zoom: 4});
@@ -410,56 +414,36 @@ function isElementOnScreen(id) {
     return bounds.top < window.innerHeight && bounds.bottom > 0;
 }
   
- //https://docs.google.com/spreadsheets/d/13yswnN49P0dsO5BS2FJYaVUIjsnuWbzA3UxvhcLUsYI/export?format=csv&id=13yswnN49P0dsO5BS2FJYaVUIjsnuWbzA3UxvhcLUsYI
-
-  // Create a popup, but don't add it to the map yet.
-  var markerHeight = 50, markerRadius = 15, linearOffset = 510;
-var popupOffsets = {
- 'top': [0, 0],
- 'top-left': [0,0],
- 'top-right': [0,0],
- 'bottom': [0, -markerHeight],
- 'bottom-left': [linearOffset, (markerHeight - markerRadius + linearOffset) * -1],
- 'bottom-right': [-linearOffset, (markerHeight - markerRadius + linearOffset) * -1],
- 'left': [markerRadius, (markerHeight - markerRadius) * -1],
- 'right': [-markerRadius, (markerHeight - markerRadius) * -1]
- };
-var hoverPopup = new mapboxgl.Popup({
-    closeButton: false,
-    closeOnClick: true,
-    offsets: popupOffsets
-});
-  window.pop = hoverPopup;
   
+  // Use the same approach as below to indicate that the symbols are clickable
+// by changing the cursor style to 'pointer'.
   map.on('mousemove', function (e) {/ *  */
-    var features = map.queryRenderedFeatures(e.point, { layers: ['centers']  });
-    map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
+    var featuresShown = map.queryRenderedFeatures(e.point, { layers: ['centers']  });
+    map.getCanvas().style.cursor = (featuresShown.length) ? 'pointer' : '';
                                     
-    if (features.length) { 
-      map.setFilter("centers-hover", ["==", "id", features[0].properties.id]);
-                         }
+    if (featuresShown.length) { 
+      map.setFilter("centers-hover", ["==", "id", featuresShown[0].properties.id]);
+    }
 
   });
   
-  // Use the same approach as above to indicate that the symbols are clickable
-// by changing the cursor style to 'pointer'.
+
 map.on('click', function (e) {/ *  */
-    var features = map.queryRenderedFeatures(e.point, { layers: ['centers']  });
-    var feature = features && features[0] && features[0].properties && features[0].properties.id;
-    if (feature !== undefined) {  
+    var featuresShown = map.queryRenderedFeatures(e.point, { layers: ['centers']  });
+    var featureShown =featuresShown && featuresShown[0] && featuresShown[0].properties && featuresShown[0].properties.id;
+    if (featureShown !== undefined) {  
      	window.isBusyAutoScrolling=true;
-      console.log(feature);
    		$('body,html').animate({
-    		scrollTop: $("#"+feature).offset().top
+    		scrollTop: $("#"+featureShown).offset().top
 }, 1000);
-      setActiveChapter(feature);
+      setActiveChapter(featureShown);
       window.setTimeout(function() {
         window.isBusyAutoScrolling=false;
       }, 1050);
       	
 
     }
-    map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
+    map.getCanvas().style.cursor = (featureShown.length) ? 'pointer' : '';
 
 });
   map.addControl(new mapboxgl.NavigationControl());
