@@ -118,7 +118,7 @@
   <div id="features">&nbsp;</div>
 <script>
   //Raven.config('https://1a6e5463bde24c9ea2a9bf5f11200adb@sentry.io/162393').install()
-window.isBusyAutoScrolling=true;
+window.isBusyAutoScrolling=false;
 
 mapboxgl.accessToken = 'pk.eyJ1IjoidXNhaWRnZW9jZW50ZXIiLCJhIjoiY2lyMjk5eGlkMDMwdWZxbTh4dmx4Z2tvbyJ9.TC7ZUzMtmRYB9aQRFOg2FQ';
   
@@ -376,16 +376,17 @@ window.onscroll = function() {
       var chapterNames = features.map(function(a) {
         return cleanID(a.properties.School)
       });
+    
       for (var i = 0; i < chapterNames.length; i++) {
           var chapterName = chapterNames[i];
 
           if (isElementOnScreen(chapterName)) {
               setActiveChapter(chapterName);
               break;
-          } else if (window.isBusyAutoScrolling) {
-            console.log('was scrolling, skipped active chapter');
           }
       }
+  } else  {
+            console.log('was scrolling, skipped active chapter');
   }
 };
 
@@ -460,16 +461,6 @@ map.on('click', function (e) {/ *  */
     }
     map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
 
-
-    /*if (!features && !features.length) {
-      hoverPopup.remove();
-      return;
-    }
-  
-  if (feature && feature.properties && feature.properties.type !== 'country' && feature.properties.type !== 'state') {	hoverPopup.setLngLat(feature.geometry.coordinates)
-       .setHTML(templatize(feature.properties))
-        .addTo(map);
-  }*/
 });
   map.addControl(new mapboxgl.NavigationControl());
 </script>
