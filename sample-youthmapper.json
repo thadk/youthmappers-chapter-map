@@ -1,0 +1,139 @@
+{
+    "type": "FeatureCollection",
+    "features": [{
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [-79.94338989257812, 39.62473049524288]
+        },
+        "properties": {
+            "LATITUDE": 39.6247,
+            "LONGITUDE": -79.9435,
+            "University": "West Virginia University",
+            "tilequery": {
+                "distance": 63003,
+                "layer": "YMTRY-dkunk0"
+            }
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [-79.88983154296876, 40.065460682065535]
+        },
+        "properties": {
+            "LATITUDE": 40.06587,
+            "LONGITUDE": -79.889797,
+            "University": "California University of Pennsylvania",
+            "tilequery": {
+                "distance": 63615,
+                "layer": "YMTRY-dkunk0"
+            }
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [-101.87622070312499, 33.58030298537655]
+        },
+        "properties": {
+            "LATITUDE": 33.58062,
+            "LONGITUDE": -101.87617,
+            "University": "Texas Tech University",
+            "tilequery": {
+                "distance": 58249,
+                "layer": "YMTRY-dkunk0"
+            }
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [-96.60552978515625, 39.17691709496081]
+        },
+        "properties": {
+            "LATITUDE": 39.1765,
+            "LONGITUDE": -96.6052,
+            "University": "Kansas State University",
+            "tilequery": {
+                "distance": 215420,
+                "layer": "YMTRY-dkunk0"
+            }
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [-121.761474609375, 38.53849850597664]
+        },
+        "properties": {
+            "LATITUDE": 38.5382322,
+            "LONGITUDE": -121.7617125,
+            "University": "University of California",
+            "tilequery": {
+                "distance": 127557,
+                "layer": "YMTRY-dkunk0"
+            }
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [-76.70379638671876, 37.27842385645373]
+        },
+        "properties": {
+            "LATITUDE": 37.2788,
+            "LONGITUDE": -76.7037,
+            "University": "College of William & Mary",
+            "tilequery": {
+                "distance": 109593,
+                "layer": "YMTRY-dkunk0"
+            }
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [-77.30117797851564, 38.85254239036426]
+        },
+        "properties": {
+            "LATITUDE": 38.8522,
+            "LONGITUDE": -77.3018,
+            "University": "George Mason University",
+            "tilequery": {
+                "distance": 149149,
+                "layer": "YMTRY-dkunk0"
+            }
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [-77.04849243164064, 38.904927027872844]
+        },
+        "properties": {
+            "LATITUDE": 38.90441,
+            "LONGITUDE": -77.04781,
+            "University": "George Washington University",
+            "tilequery": {
+                "distance": 161610,
+                "layer": "YMTRY-dkunk0"
+            }
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [-73.99703979492189, 40.72956780913899]
+        },
+        "properties": {
+            "LATITUDE": 40.7294,
+            "LONGITUDE": -73.9974,
+            "University": "New York University",
+            "tilequery": {
+                "distance": 568086,
+                "layer": "YMTRY-dkunk0"
+            }
+        }
+    }]
+}
