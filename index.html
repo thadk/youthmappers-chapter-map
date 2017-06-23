@@ -132,6 +132,49 @@ var map = new mapboxgl.Map({
     zoom: 1.6
 });
   
+  if (!Array.prototype.find) {
+  Object.defineProperty(Array.prototype, 'find', {
+    value: function(predicate) {
+     // 1. Let O be ? ToObject(this value).
+      if (this == null) {
+        throw new TypeError('"this" is null or not defined');
+      }
+
+      var o = Object(this);
+
+      // 2. Let len be ? ToLength(? Get(O, "length")).
+      var len = o.length >>> 0;
+
+      // 3. If IsCallable(predicate) is false, throw a TypeError exception.
+      if (typeof predicate !== 'function') {
+        throw new TypeError('predicate must be a function');
+      }
+
+      // 4. If thisArg was supplied, let T be thisArg; else let T be undefined.
+      var thisArg = arguments[1];
+
+      // 5. Let k be 0.
+      var k = 0;
+
+      // 6. Repeat, while k < len
+      while (k < len) {
+        // a. Let Pk be ! ToString(k).
+        // b. Let kValue be ? Get(O, Pk).
+        // c. Let testResult be ToBoolean(? Call(predicate, T, « kValue, k, O »)).
+        // d. If testResult is true, return kValue.
+        var kValue = o[k];
+        if (predicate.call(thisArg, kValue, k, o)) {
+          return kValue;
+        }
+        // e. Increase k by 1.
+        k++;
+      }
+
+      // 7. Return undefined.
+      return undefined;
+    }
+  });
+}
   
   var cleanID = function(str) {
     str = str.replace(/^\s+|\s+$/g, ''); // trim
@@ -253,7 +296,7 @@ function makeGeoJSON(err, csvData) {
           
           /* This layer is for the hover-state */
           map.addLayer({
-                  'id': 'centers-hover',
+                  'id': 'centers-selected',
                   'type': 'symbol',
                   'source': {
                       'type': 'geojson',
@@ -266,6 +309,60 @@ function makeGeoJSON(err, csvData) {
                       0
                   ],
                   "icon-image": "ymmapmarker-green",
+                  "text-font": [
+                      "Avenir LT Std 35 Light",
+                      "Open Sans Regular"
+                  ],
+                  "icon-allow-overlap": true,
+                  "text-padding": 2,
+                  "text-offset": [
+                      0,
+                      -0.6
+                  ],
+                  "icon-size": 0.3,
+                  "text-anchor": "bottom",
+                  "text-field": {
+                      "base": 1,
+                      "stops": [
+                          [
+                              0,
+                              ""
+                          ],
+                          [
+                              11,
+                              "{School}"
+                          ],
+                          [
+                              22,
+                              "{School}"
+                          ]
+                      ]
+                  }
+              },
+              "paint": {
+                  "text-halo-color": "hsla(0, 0%, 25%, 0)",
+                  "text-halo-blur": 3,
+                  "text-color": "hsl(0, 0%, 20%)"
+              },
+                    "filter": ["==", "id", ""]
+
+              });
+         
+           /* This layer is for the hover-state */
+          map.addLayer({
+                  'id': 'centers-hover',
+                  'type': 'symbol',
+                  'source': {
+                      'type': 'geojson',
+                      'data': dataWithID
+                  },
+                  "layout": {
+                  "text-size": 14,
+                  "icon-offset": [
+                      0,
+                      0
+                  ],
+                  "icon-image": "ymmapmarker-green-selected",
                   "text-font": [
                       "Avenir LT Std 35 Light",
                       "Open Sans Regular"
@@ -372,12 +469,11 @@ function makeGeoJSON(err, csvData) {
  // On every scroll event, check which element is on screen
 window.onscroll = function() {
   if (!window.isBusyAutoScrolling) {
-    var featuresList = map.querySourceFeatures( 'centers' ) || []; 
+     //	querySourceFeatures did not do the right thing here for some reason: was only shown visibile items
+    //var featuresList = map.querySourceFeatures( 'centers' ) || []; 
       var chapterNames = window.rawFeaturesList.map(function(a) {
         return a.properties.id
-      });
-    //console.log(chapterNames)
-    
+      });    
       for (var i = 0; i < chapterNames.length; i++) {
           var chapterName = chapterNames[i];
 
@@ -397,13 +493,19 @@ window.onscroll = function() {
 function setActiveChapter(chapterName) {
     if (chapterName === activeChapterName) return;
   
-  var featuresList = map.querySourceFeatures( 'centers' ) || [];
+  //	querySourceFeatures did not do the right thing here for some reason: was only shown visibile items
+  //var featuresList = map.querySourceFeatures( 'centers' ) || [];
 
     map.flyTo({center:
 rawFeaturesList.find(function(a) {return a.properties.id === chapterName}).geometry.coordinates, zoom: 4});
 
  document.getElementById(chapterName).setAttribute('class', 'active');
     document.getElementById(activeChapterName).setAttribute('class', '');
+     
+    map.setFilter("centers-selected", ["==", "id", chapterName]);
+  
+  	//unset hover
+  	map.setFilter("centers-hover", ["==", "id", ""]);
 
     activeChapterName = chapterName;
 }
@@ -442,7 +544,7 @@ map.on('click', function (e) {/ *  */
       	
 
     }
-    map.getCanvas().style.cursor = (featureShown.length) ? 'pointer' : '';
+
 
 });
   map.addControl(new mapboxgl.NavigationControl());
