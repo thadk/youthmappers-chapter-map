@@ -386,7 +386,7 @@ var hoverPopup = new mapboxgl.Popup({
     var features = map.queryRenderedFeatures(e.point, { layers: ['centers']  });
     map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
 
-  }
+  });
   
   // Use the same approach as above to indicate that the symbols are clickable
 // by changing the cursor style to 'pointer'.
