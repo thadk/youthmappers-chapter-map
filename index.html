@@ -296,56 +296,16 @@ function makeGeoJSON(err, csvData) {
                   "text-color": "hsl(0, 0%, 20%)"
               }
               }; 
-map.addLayer({
-                  'id': 'centers',
-                  'type': 'symbol',
+          
+          /* Below was needed to preserve the data for correct cursor updating on hover */
+					map.addLayer(Object.assign({
                   'source': {
                       'type': 'geojson',
                       'data': dataWithID
-                  },
-                  "layout": {
-                  "text-size": 14,
-                  "icon-offset": [
-                      0,
-                      0
-                  ],
-                  "icon-image": "ymmapmarker",
-                  "text-font": [
-                      "Avenir LT Std 35 Light",
-                      "Open Sans Regular"
-                  ],
-                  "icon-allow-overlap": true,
-                  "text-padding": 2,
-                  "text-offset": [
-                      0,
-                      -0.6
-                  ],
-                  "icon-size": 0.3,
-                  "text-anchor": "bottom",
-                  "text-field": {
-                      "base": 1,
-                      "stops": [
-                          [
-                              0,
-                              ""
-                          ],
-                          [
-                              11,
-                              "{School}"
-                          ],
-                          [
-                              22,
-                              "{School}"
-                          ]
-                      ]
                   }
-              },
-              "paint": {
-                  "text-halo-color": "hsla(0, 0%, 25%, 0)",
-                  "text-halo-blur": 3,
-                  "text-color": "hsl(0, 0%, 20%)"
-              }
-              });        
+              },basicLayer)); 
+          
+          
           selectedLayerStyle = Object.assign(basicLayer,{
             "id": "centers-selected",
             "layout": Object.assign(basicLayer.layout,{
