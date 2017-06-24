@@ -115,7 +115,8 @@
 </head>
 <body>
 <div id='map'></div>
-  <div id="features">&nbsp;</div>
+  <div id="features"><section id="starting-point">
+    <div class="usaidpop"><h3>Chapters</h3><div class="chapter-interior"><div style="background-image:url(https://static.wixstatic.com/media/6dd283_d78721bf0291497db946d73eb8be26dc.jpg/v1/fill/w_632,h_136,al_c,q_80,usm_0.66_1.00_0.01/6dd283_d78721bf0291497db946d73eb8be26dc.png);" class="center-cropped"></div></div></div><div class="chapter-blurbs"><h3 class="truncate">YOUTHMAPPERS</h3> The chapters are below.<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p></div></div></section>&nbsp;</div>
 <script>
   //Raven.config('https://1a6e5463bde24c9ea2a9bf5f11200adb@sentry.io/162393').install()
 window.isBusyAutoScrolling=false;
@@ -133,6 +134,7 @@ var map = new mapboxgl.Map({
     zoom: 1
 });
   
+  /* polyfill for find in case of IE11 */
   if (!Array.prototype.find) {
   Object.defineProperty(Array.prototype, 'find', {
     value: function(predicate) {
@@ -243,8 +245,8 @@ function makeGeoJSON(err, csvData) {
          });
       
       	var onDataAndMapLoaded = function () {
-              console.log(dataWithID)
-              map.addLayer({
+              console.log(dataWithID);
+          var basicLayer = {
                   'id': 'centers',
                   'type': 'symbol',
                   'source': {
@@ -293,11 +295,9 @@ function makeGeoJSON(err, csvData) {
                   "text-halo-blur": 3,
                   "text-color": "hsl(0, 0%, 20%)"
               }
-              });
-          
-          /* This layer is for the hover-state */
-          map.addLayer({
-                  'id': 'centers-selected',
+              }; 
+map.addLayer({
+                  'id': 'centers',
                   'type': 'symbol',
                   'source': {
                       'type': 'geojson',
@@ -309,7 +309,7 @@ function makeGeoJSON(err, csvData) {
                       0,
                       0
                   ],
-                  "icon-image": "ymmapmarker-green",
+                  "icon-image": "ymmapmarker",
                   "text-font": [
                       "Avenir LT Std 35 Light",
                       "Open Sans Regular"
@@ -344,71 +344,32 @@ function makeGeoJSON(err, csvData) {
                   "text-halo-color": "hsla(0, 0%, 25%, 0)",
                   "text-halo-blur": 3,
                   "text-color": "hsl(0, 0%, 20%)"
-              },
-                    "filter": ["==", "id", ""]
-
-              });
+              }
+              });        
+          selectedLayerStyle = Object.assign(basicLayer,{
+            "id": "centers-selected",
+            "layout": Object.assign(basicLayer.layout,{
+              "icon-image": "ymmapmarker-green"
+              }),
+            "filter": ["==", "id", ""]
+          });
+          map.addLayer(selectedLayerStyle);
          
-           /* This layer is for the hover-state */
-          map.addLayer({
-                  'id': 'centers-hover',
-                  'type': 'symbol',
-                  'source': {
-                      'type': 'geojson',
-                      'data': dataWithID
-                  },
-                  "layout": {
-                  "text-size": 14,
-                  "icon-offset": [
-                      0,
-                      0
-                  ],
-                  "icon-image": "ymmapmarker-green-selected",
-                  "text-font": [
-                      "Avenir LT Std 35 Light",
-                      "Open Sans Regular"
-                  ],
-                  "icon-allow-overlap": true,
-                  "text-padding": 2,
-                  "text-offset": [
-                      0,
-                      -0.6
-                  ],
-                  "icon-size": 0.3,
-                  "text-anchor": "bottom",
-                  "text-field": {
-                      "base": 1,
-                      "stops": [
-                          [
-                              0,
-                              ""
-                          ],
-                          [
-                              11,
-                              "{School}"
-                          ],
-                          [
-                              22,
-                              "{School}"
-                          ]
-                      ]
-                  }
-              },
-              "paint": {
-                  "text-halo-color": "hsla(0, 0%, 25%, 0)",
-                  "text-halo-blur": 3,
-                  "text-color": "hsl(0, 0%, 20%)"
-              },
-                    "filter": ["==", "id", ""]
-
-              });
+          hoveredLayerStyle = Object.assign(basicLayer,{
+            "id": "centers-hover",
+            "layout": Object.assign(basicLayer.layout,{
+            	"icon-image": "ymmapmarker-green-selected"
+            }),
+            "filter": ["==", "id", ""]
+          });
+          map.addLayer(hoveredLayerStyle);
 
             var sections = document.getElementById('features');
 
             if (dataWithID.features.length) { 
               dataWithID.features.map(function (feature) {
-              sections.innerHTML = "<section id='"+feature.properties.id+"'>"
-                +templatize(feature.properties)+"</section>"+sections.innerHTML;
+              sections.innerHTML = sections.innerHTML+"<section id='"+feature.properties.id+"'>"
+                +templatize(feature.properties)+"</section>";
               });
               window.rawFeaturesList = dataWithID.features
             }
@@ -472,8 +433,21 @@ window.onscroll = function() {
   if (!window.isBusyAutoScrolling) {
      //	querySourceFeatures did not do the right thing here: was only shown visibile items
       var chapterNames = window.rawFeaturesList.map(function(a) {
-        return a.properties.id
-      });    
+        return a.properties.id;
+      });
+    
+    
+    	chapterNames.push(
+        {
+          properties: {
+            id: 'starting-point',
+            zoom: 1
+          },
+          geometry: {
+            coordinates: [-12, 15]
+          }
+        });
+    
       for (var i = 0; i < chapterNames.length; i++) {
           var chapterName = chapterNames[i];
 
@@ -492,9 +466,8 @@ function setActiveChapter(chapterName) {
     if (chapterName === activeChapterName) return;
   
   //	querySourceFeatures did not do the right thing here: was only shown visibile items
-
-    map.flyTo({center:
-rawFeaturesList.find(function(a) {return a.properties.id === chapterName}).geometry.coordinates, zoom: 4});
+		var target = rawFeaturesList.find(function(a) {return a.properties.id === chapterName})
+    map.flyTo({center:target.geometry.coordinates, zoom:(target.properties.zoom ? target.properties.zoom : 4)});
 
  document.getElementById(chapterName).setAttribute('class', 'active');
     document.getElementById(activeChapterName).setAttribute('class', '');
@@ -516,7 +489,7 @@ function isElementOnScreen(id) {
   // Use the same approach as below to indicate that the symbols are clickable
 // by changing the cursor style to 'pointer'.
   map.on('mousemove', function (e) {/ *  */
-    var featuresShown = map.queryRenderedFeatures(e.point, { layers: ['centers']  });
+    var featuresShown = map.querySourceFeatures(e.point, { layers: ['centers']  });
     map.getCanvas().style.cursor = (featuresShown.length) ? 'pointer' : '';
                                     
     if (featuresShown.length) { 
@@ -538,7 +511,7 @@ map.on('click', function (e) {/ *  */
       window.setTimeout(function() {
         window.isBusyAutoScrolling=false;
       }, 1050);
-      	
+      	map.getCanvas().style.cursor = (featuresShown.length) ? 'pointer' : '';
     }
 
 
