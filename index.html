@@ -371,8 +371,10 @@ function makeGeoJSON(err, csvData) {
       			"</h3>",
       
             "<div class='chapter-interior'>",
+      "<div style='background-image:url(",input.Photo,");' class='center-cropped'></div>",
               "<div style='background-image:url(",input.Image,");' class='center-cropped'></div>",
       
+     
               "<div class='ym-links'>",
                 (input.FacebookWebsite !== '' ? websiteLink
                     : hiddenWebsiteLink),
@@ -440,7 +442,6 @@ function setActiveChapter(chapterName) {
 }
 
 function isElementOnScreen(id) {
-  console.log("meep",id);
     var element = document.getElementById(id) || document.getElementById(activeChapterName);
     var bounds = element.getBoundingClientRect();
     return bounds.top < window.innerHeight && bounds.bottom > 0;
