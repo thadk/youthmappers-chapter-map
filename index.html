@@ -509,7 +509,6 @@ rawFeaturesList.find(function(a) {return a.properties.id === chapterName}).geome
 
 function isElementOnScreen(id) {
     var element = document.getElementById(id) || document.getElementById(activeChapterName);
-    debugger
     var bounds = element.getBoundingClientRect();
     return bounds.top < window.innerHeight && bounds.bottom > 0;
 }
