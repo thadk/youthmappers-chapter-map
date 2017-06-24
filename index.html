@@ -104,16 +104,56 @@
           display: inline;
         }
     </style>
+  
+  
+  
+  
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.css' rel='stylesheet' />
       <script src='csv2geojson.js'></script>
-
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-
   <script src="https://cdn.ravenjs.com/3.14.2/raven.min.js"></script>
 
 </head>
 <body>
+  
+  <div style="position: absolute; width: 123px; z-index: 3; height: 123px; top: 5px; left: 400px;" class="s_BIwzIGroupSkin" id="comp-j1dnrzrk"><div id="comp-j1dnrzrkinlineContent" class="s_BIwzIGroupSkininlineContent" style="z-index: inherit;"><div style="width: 123px;    z-index: inherit; position: absolute; left: 0px; top: 0px; height: 123px;" class="style-j1dntr3e" id="comp-j1dnnuzh" data-reactid=".0.$SITE_ROOT.$desktop_siteRoot.$PAGES_CONTAINER.1.1.$SITE_PAGES.$d8gwh_DESKTOP.1.$f.0.$comp-j1dnnuzh"><style type="text/css">.style-j1dntr3e svg {width:100%;height:100%;position:absolute;top:0;right:0;bottom:0;left:0;margin:auto;fill:#4F8203;fill-opacity:1;stroke:rgba(237, 21, 102, 1);stroke-width:0px;}
+.style-j1dntr3e svg * {vector-effect:non-scaling-stroke;}</style><svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200" preserveAspectRatio="none" style="stroke-width: 0px;">
+    <g>
+        <path d="M200 100c0 55.228-44.772 100-100 100S0 155.228 0 100 44.772 0 100 0s100 44.772 100 100z"></path>
+    </g>
+<style type="text/css" data-reactid=".0.0.$theme_fonts">.font_0 {font: normal normal normal 20px/1.4em 'open sans',sans-serif ;color:#283B62;} 
+.font_1 {font: normal normal normal 16px/1.4em din-next-w01-light,din-next-w02-light,din-next-w10-light,sans-serif ;color:#605E5E;} 
+.font_2 {font: normal normal bold 28px/1.4em 'open sans',sans-serif ;color:#283B62;} 
+.font_3 {font: normal normal bold 38px/1.4em 'open sans',sans-serif ;color:#283B62;} 
+.font_4 {font: normal normal normal 32px/1.4em 'open sans',sans-serif ;color:#283B62;} 
+.font_5 {font: normal normal bold 28px/1.4em 'open sans',sans-serif ;color:#283B62;} 
+.font_6 {font: normal normal bold 22px/1.4em 'open sans',sans-serif ;color:#283B62;} 
+.font_7 {font: normal normal bold 18px/1.4em 'open sans',sans-serif ;color:#283B62;} 
+.font_8 {font: normal normal normal 16px/1.4em 'open sans',sans-serif ;color:#283B62;} 
+.font_9 {font: normal normal normal 14px/1.4em 'open sans',sans-serif ;color:#2F2E2E;} 
+.font_10 {font: normal normal normal 12px/1.4em din-next-w01-light,din-next-w02-light,din-next-w10-light,sans-serif ;color:#605E5E;}
+  .color_11 {color: #FFFFFF;}
+.backcolor_11 {background-color: #FFFFFF;}
+  .s_BIwzIGroupSkin a {
+  cursor: pointer;
+  text-decoration: none; }
+</style>
+<style type="text/css" data-reactid=".0.0.$lb1">
+.txtNew p {margin:0;line-height:normal;letter-spacing:normal;}
+.txtNew h1 {margin:0;line-height:normal;letter-spacing:normal;}
+.txtNew h2 {margin:0;line-height:normal;letter-spacing:normal;}
+.txtNew h3 {margin:0;line-height:normal;letter-spacing:normal;}
+.txtNew h4 {margin:0;line-height:normal;letter-spacing:normal;}
+.txtNew h5 {margin:0;line-height:normal;letter-spacing:normal;}
+.txtNew h6 {margin:0;line-height:normal;letter-spacing:normal;}
+.txtNew a {color:inherit;}</style>
+<style type="text/css">.s_BIwzIGroupSkin {pointer-events:none;}
+.s_BIwzIGroupSkin_ie10 {max-width:0;max-height:0;}
+.s_BIwzIGroupSkininlineContent {pointer-events:all;}</style>
+</svg>
+    </div><div style="width: 110px; position: absolute; left: 6px; top: 32px;" class="txtNew" id="comp-j1dnoa98"><h4 class="font_4" style="font-size:22px; text-align:center;"><span style="font-size:22px;"><span class="color_11"><a href="https://docs.google.com/forms/d/1OQ2ux28CHF3HIVZCNmev9MwQw4YY2w8cbI5cc-UToNs/viewform" target="_blank" data-content="https://docs.google.com/forms/d/1OQ2ux28CHF3HIVZCNmev9MwQw4YY2w8cbI5cc-UToNs/viewform" data-type="external">Join the</a></span></span></h4>
+<h4 class="font_4" style="font-size:22px; text-align:center;"><span style="font-size:22px;"><span class="color_11"><a href="https://docs.google.com/forms/d/1OQ2ux28CHF3HIVZCNmev9MwQw4YY2w8cbI5cc-UToNs/viewform" target="_blank" data-content="https://docs.google.com/forms/d/1OQ2ux28CHF3HIVZCNmev9MwQw4YY2w8cbI5cc-UToNs/viewform" data-type="external">Network</a></span></span></h4></div></div></div>
 <div id='map'></div>
   <div id="features"><section id="starting-point" class="active">
     <div class="usaidpop"><h3>Chapters</h3><div class="chapter-interior"><div style="background-image:url(https://static.wixstatic.com/media/6dd283_d78721bf0291497db946d73eb8be26dc.jpg/v1/fill/w_632,h_136,al_c,q_80,usm_0.66_1.00_0.01/6dd283_d78721bf0291497db946d73eb8be26dc.png);" class="center-cropped"></div></div></div><div class="chapter-blurbs"><h3 class="truncate">YOUTHMAPPERS</h3> The chapters are below.<p>Scroll down for each chapter</p></div></div></section>&nbsp;</div>
