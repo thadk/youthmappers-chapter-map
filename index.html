@@ -489,7 +489,7 @@ function isElementOnScreen(id) {
   // Use the same approach as below to indicate that the symbols are clickable
 // by changing the cursor style to 'pointer'.
   map.on('mousemove', function (e) {/ *  */
-    var featuresShown = map.querySourceFeatures(e.point, { layers: ['centers']  });
+    var featuresShown = map.queryRenderedFeatures(e.point, { layers: ['centers']  });
     map.getCanvas().style.cursor = (featuresShown.length) ? 'pointer' : '';
                                     
     if (featuresShown.length) { 
