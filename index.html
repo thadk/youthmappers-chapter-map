@@ -126,8 +126,8 @@ mapboxgl.accessToken = 'pk.eyJ1IjoidXNhaWRnZW9jZW50ZXIiLCJhIjoiY2lyMjk5eGlkMDMwd
   
 var map = new mapboxgl.Map({
     container: 'map',
-    pitch: 45,
-    bearing: -65,
+    /*pitch: 45,
+    bearing: -65,*/
     style: 'mapbox://styles/usaidgeocenter/cj3fzr28f000b2robnl5jfxsh',
     center: [-12, 15],
     zoom: 1
@@ -509,6 +509,7 @@ rawFeaturesList.find(function(a) {return a.properties.id === chapterName}).geome
 
 function isElementOnScreen(id) {
     var element = document.getElementById(id) || document.getElementById(activeChapterName);
+    debugger
     var bounds = element.getBoundingClientRect();
     return bounds.top < window.innerHeight && bounds.bottom > 0;
 }
