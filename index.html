@@ -372,6 +372,16 @@ map.addLayer({
                 +templatize(feature.properties)+"</section>";
               });
               window.rawFeaturesList = dataWithID.features
+              /* add a starting point entry */
+              window.rawFeaturesList.push({
+                properties: {
+                  id: 'starting-point',
+                  zoom: 1
+                },
+                geometry: {
+                  coordinates: [-12, 15]
+                }
+              });
             }
        		}
         if (map.loaded()) {
@@ -437,16 +447,7 @@ window.onscroll = function() {
       });
     
     
-    	chapterNames.push(
-        {
-          properties: {
-            id: 'starting-point',
-            zoom: 1
-          },
-          geometry: {
-            coordinates: [-12, 15]
-          }
-        });
+
     
       for (var i = 0; i < chapterNames.length; i++) {
           var chapterName = chapterNames[i];
@@ -464,7 +465,6 @@ window.onscroll = function() {
   var activeChapterName = 'west-virginia-university';
 function setActiveChapter(chapterName) {
     if (chapterName === activeChapterName) return;
-  
   //	querySourceFeatures did not do the right thing here: was only shown visibile items
 		var target = rawFeaturesList.find(function(a) {return a.properties.id === chapterName})
     map.flyTo({center:target.geometry.coordinates, zoom:(target.properties.zoom ? target.properties.zoom : 4)});
@@ -481,6 +481,7 @@ function setActiveChapter(chapterName) {
 }
 
 function isElementOnScreen(id) {
+  console.log("meep",id);
     var element = document.getElementById(id) || document.getElementById(activeChapterName);
     var bounds = element.getBoundingClientRect();
     return bounds.top < window.innerHeight && bounds.bottom > 0;
