@@ -64,8 +64,10 @@
           bottom: 12px;
         }
         .ym-links {
-          text-align:center;
-          display: inline-block;
+        	text-align: left;
+    			padding-left: 7px;
+    			line-height: 20px;
+    			display: inline-block;
         }
         
         /*removeme*/
@@ -84,8 +86,8 @@
           background-size: contain;
           width: auto;
           height: auto;
-          min-height: 100px;
-          min-width: 170px;
+          min-height: 170px;
+          min-width: 300px;
           display: inline-block;
           margin-right:0.5em;
         }
@@ -97,10 +99,10 @@
         
         div.chapter-interior {
           width: 320px;
-          text-align: center;
+          text-align: right;
         }
         
-        h3.school-name {
+        h2.school-name {
           color: #5272B2;
         }
         
@@ -416,8 +418,8 @@ function makeGeoJSON(err, csvData) {
     if (props.School !== undefined) {
      input = props;
      univ = props.School;
-     var websiteLink = ["<a target='new' href='"+input.FacebookWebsite+"'><h3 class='school-name truncate' title='",input.School,"'>",input.School,"</h3></a>"].join('');
-     var hiddenWebsiteLink = ["<h3 class='school-name truncate' title='",input.School,"'>", input.School,"</h3>"];
+     var websiteLink = ["<a target='new' href='"+input.FacebookWebsite+"'><h2 class='school-name truncate' title='",input.School,"'>",input.School,"</h2></a>"].join('');
+     var hiddenWebsiteLink = ["<h2 class='school-name truncate' title='",input.School,"'>", input.School,"</h2>"];
       
     return [
       			"<div class='usaidpop'>",
@@ -427,7 +429,7 @@ function makeGeoJSON(err, csvData) {
       			"<div style='background-image:url(",input.Photo,");' class='center-cropped'></div>",
       
             "<a target='new' href='",input.ContactURL,"'>",     
-            "<a href=''><div style='background-image:url(",input.Image,");' class='center-cropped sm'></div></a>",
+            "<div style='background-image:url(",input.Image,");' class='center-cropped sm'></div>",
             "</a>",
       
      
