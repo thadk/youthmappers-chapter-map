@@ -7,49 +7,45 @@
       <style>
    
         .mapboxgl-popup {
-          max-width: 500px;
+          max-width: 320px;
           font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
           z-index: 10000;
         }
         #map {
-
+          position:fixed;
+          width:70%;
+          top:0; 
+          bottom:0; 
         }
-        
-           #map {
-            position:fixed;
-            width:60%;
-            top:0; 
-            bottom:0; 
-          }
-          #features {
-              width: 40%;
-              margin-left: 60%;
-              font-family: sans-serif;
-              overflow-y: scroll;
-              background-color: #fafafa;
-          }
-          section {
-              padding:  25px 50px;
-              line-height: 25px;
-              border-bottom: 1px solid #ddd;
-              opacity: 0.40;
-              font-size: 13px;
-          }
-          section.active {
-              opacity: 1;
-          }
-          section:last-child {
-              border-bottom: none;
-              margin-bottom: 400px;
-          }
-  
+        #features {
+          width: 30%;
+          margin-left: 70%;
+          font-family: sans-serif;
+          overflow-y: scroll;
+          background-color: #fafafa;
+        }
+        section {
+          padding:  25px 50px;
+          line-height: 25px;
+          border-bottom: 1px solid #ddd;
+          opacity: 0.40;
+          font-size: 13px;
+        }
+        section.active {
+          opacity: 1;
+        }
+        section:last-child {
+          border-bottom: none;
+          margin-bottom: 400px;
+        }
+
         .usaidpop h3 {
           padding: 0;
           margin: 0;
           margin-bottom:.5em;
         }
         .truncate {
-            width: 480px;
+            width: 320px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -71,6 +67,8 @@
           text-align:center;
           display: inline-block;
         }
+        
+        /*removeme*/
         .website-link {
           border: solid rgba(82, 114, 178, 1) 2px;
           cursor: pointer !important;
@@ -92,21 +90,39 @@
           margin-right:0.5em;
         }
         
+        div.center-cropped.sm {
+          min-height: 37px;
+          min-width: 39px;
+        }
+        
         div.chapter-interior {
-          width: 500px;
+          width: 320px;
           text-align: center;
         }
-        .chapter-blurbs {
-          padding-left: 1em;
-          padding-right: 1em;
+        
+        h3.school-name {
+          color: #5272B2;
         }
+        
+        h3.chapter-name {
+          color: #5272B2;
+          font-style: italic;
+          text-transform: capitalize;
+        }
+        h3.place-name {
+          color: #CBB492;
+        }
+        .chapter-blurbs {
+          padding-left: 0.5em;
+          padding-right: 0.5em;
+          min-width: 320px;
+        }
+        
+        /*removeme */
         .chapter-blurbs h3 {
           display: inline;
         }
     </style>
-  
-  
-  
   
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.css' rel='stylesheet' />
@@ -156,7 +172,8 @@
 <h4 class="font_4" style="font-size:22px; text-align:center;"><span style="font-size:22px;"><span class="color_11"><a href="https://docs.google.com/forms/d/1OQ2ux28CHF3HIVZCNmev9MwQw4YY2w8cbI5cc-UToNs/viewform" target="_blank" data-content="https://docs.google.com/forms/d/1OQ2ux28CHF3HIVZCNmev9MwQw4YY2w8cbI5cc-UToNs/viewform" data-type="external">Network</a></span></span></h4></div></div></div>
 <div id='map'></div>
   <div id="features"><section id="starting-point" class="active">
-    <div class="usaidpop"><h3>Chapters</h3><div class="chapter-interior"><div style="background-image:url(https://static.wixstatic.com/media/6dd283_d78721bf0291497db946d73eb8be26dc.jpg/v1/fill/w_632,h_136,al_c,q_80,usm_0.66_1.00_0.01/6dd283_d78721bf0291497db946d73eb8be26dc.png);" class="center-cropped"></div></div></div><div class="chapter-blurbs"><h3 class="truncate">YOUTHMAPPERS</h3> The chapters are below.<p>Scroll down for each chapter</p></div></div></section>&nbsp;</div>
+    <div class="usaidpop"><h3>Chapters</h3><div class="chapter-interior"><div style="background-image:url(https://static.wixstatic.com/media/6dd283_d78721bf0291497db946d73eb8be26dc.jpg/v1/fill/w_632,h_136,al_c,q_80,usm_0.66_1.00_0.01/6dd283_d78721bf0291497db946d73eb8be26dc.png);" class="center-cropped"></div></div></div><div class="chapter-blurbs"><h3 class="truncate">YOUTHMAPPERS</h3> (TODO PLACEHOLDER NUM) 62 Chapters from 20 Countries 
+ The chapters are below.<p>Scroll down for each chapter</p></div></div></section>&nbsp;</div>
 <script>
   //Raven.config('https://1a6e5463bde24c9ea2a9bf5f11200adb@sentry.io/162393').install()
 window.isBusyAutoScrolling=false;
@@ -399,35 +416,37 @@ function makeGeoJSON(err, csvData) {
     if (props.School !== undefined) {
      input = props;
      univ = props.School;
-     var websiteLink = ["<a class='website-link' target='new' href='"+input.FacebookWebsite+"'><span class='website-label'",(input.FacebookWebsite !== '' ? "" : ''), ">website</span></a> &nbsp; "].join('');
-     var hiddenWebsiteLink = "<a class='website-link' target='new' href='' style='visibility: hidden'><span class='website-label'>hidden</span></a> &nbsp; ";
-      var emailImg = "<img src='https://static.wixstatic.com/media/8d13be_830daf9636864597abb1e3cd19394261.gif' style='width: 40px; height: 40px; object-fit: contain;'/>"
+     var websiteLink = ["<a target='new' href='"+input.FacebookWebsite+"'><h3 class='school-name truncate' title='",input.School,"'>",input.School,"</h3></a>"].join('');
+     var hiddenWebsiteLink = ["<h3 class='school-name truncate' title='",input.School,"'>", input.School,"</h3>"];
       
     return [
       			"<div class='usaidpop'>",
-      
-      			"<h3 class='truncate' title='",univ,"'>",
-      				univ," : ",input.PlaceName,
-      			"</h3>",
+
       
             "<div class='chapter-interior'>",
-      "<div style='background-image:url(",input.Photo,");' class='center-cropped'></div>",
-              "<div style='background-image:url(",input.Image,");' class='center-cropped'></div>",
+      			"<div style='background-image:url(",input.Photo,");' class='center-cropped'></div>",
+      
+            "<a target='new' href='",input.ContactURL,"'>",     
+            "<a href=''><div style='background-image:url(",input.Image,");' class='center-cropped sm'></div></a>",
+            "</a>",
       
      
               "<div class='ym-links'>",
                 (input.FacebookWebsite !== '' ? websiteLink
                     : hiddenWebsiteLink),
-                "<a target='new' href='",input.ContactURL,"'>",
-                emailImg,
-                "</a>",
+              "<h3 class='truncate chapter-name'>",
+              input.ChapterName,
+              "</h3>",
+                
+            			"<h3 class='truncate place-name' title='",input.PlaceName,"'>",
+      				input.PlaceName,
+      			"</h3>",
+      
+      
               "</div>",
       			"</div>",
       
       			"<div class='chapter-blurbs'>",
-              "<h3 class='truncate'>",
-              input.ChapterName,
-              "</h3>&nbsp;",
               input.blurbs,
       			"</div>",
       
@@ -468,7 +487,7 @@ function setActiveChapter(chapterName) {
     if (chapterName === activeChapterName) return;
   //	querySourceFeatures did not do the right thing here: was only shown visibile items
 		var target = rawFeaturesList.find(function(a) {return a.properties.id === chapterName})
-    map.flyTo({center:target.geometry.coordinates, zoom:(target.properties.zoom ? target.properties.zoom : 4)});
+    map.flyTo({center:target.geometry.coordinates, zoom:(target.properties.zoom ? target.properties.zoom : 8)});
 
  document.getElementById(chapterName).setAttribute('class', 'active');
     document.getElementById(activeChapterName).setAttribute('class', '');
