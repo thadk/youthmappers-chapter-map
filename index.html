@@ -138,12 +138,12 @@
   .arrow-wrap {
   position:absolute;
   z-index:1;
-  left:84%;
-  top:330px;
-  margin-left:0;
+  left:87%;
+  top:300px;
+  margin-left:-5em;
   background:#111;
-  width:3.5em;
-  height:3.5em;
+  width:4em;
+  height:4em;
   padding:2em 2em;
   border-radius:50%;
   font-size:8px;
@@ -156,8 +156,6 @@
   width: 0px;
   height: 0px;
   border-style: solid;
-  margin-left: -9px;
-  margin-top: 3px;
   border-width: 3em 3em 0 3em;
   border-color: #ffffff transparent transparent transparent;
   -webkit-transform:rotate(360deg)
@@ -166,7 +164,7 @@
 .arrow:after {
   content:'';
   position:absolute;
-  top:-3.4em;
+  top:-3.2em;
   left:-3em;
   width: 0px;
   height: 0px;
@@ -228,10 +226,12 @@
   <div id="features"><section id="starting-point" class="active">
     <div class="usaidpop"><h3>Chapters</h3><div class="chapter-interior"><div style="background-image:url(https://static.wixstatic.com/media/6dd283_d78721bf0291497db946d73eb8be26dc.jpg/v1/fill/w_632,h_136,al_c,q_80,usm_0.66_1.00_0.01/6dd283_d78721bf0291497db946d73eb8be26dc.png);" class="center-cropped"></div></div></div><div class="chapter-blurbs"><h3 class="truncate">YOUTHMAPPERS:</h3> 62 Chapters from 20 Countries 
  The chapters are below.<p>Scroll down for each chapter or click on a marker on the map.</p>
-    <a class="arrow-wrap" href="#texas-tech-university-interior">
+    <a class="arrow-wrap" href="#content">
 <span class="arrow"></span>
+<span class="hint">scroll</span>
 </a>
     </div></div></section>&nbsp;</div>
+  <div id="content">&nbsp;</div>
 <script>
   //Raven.config('https://1a6e5463bde24c9ea2a9bf5f11200adb@sentry.io/162393').install()
 window.isBusyAutoScrolling=false;
@@ -249,7 +249,31 @@ var map = new mapboxgl.Map({
     zoom: 1
 });
   
-  /* polyfill for find in case of IE11 */
+  /* polyfill for find and Object.assign in case of IE11 */
+  if (typeof Object.assign != 'function') {
+  Object.assign = function(target, varArgs) { // .length of function is 2
+    'use strict';
+    if (target == null) { // TypeError if undefined or null
+      throw new TypeError('Cannot convert undefined or null to object');
+    }
+
+    var to = Object(target);
+
+    for (var index = 1; index < arguments.length; index++) {
+      var nextSource = arguments[index];
+
+      if (nextSource != null) { // Skip over if undefined or null
+        for (var nextKey in nextSource) {
+          // Avoid bugs when hasOwnProperty is shadowed
+          if (Object.prototype.hasOwnProperty.call(nextSource, nextKey)) {
+            to[nextKey] = nextSource[nextKey];
+          }
+        }
+      }
+    }
+    return to;
+  };
+}
   if (!Array.prototype.find) {
   Object.defineProperty(Array.prototype, 'find', {
     value: function(predicate) {
@@ -481,10 +505,10 @@ function makeGeoJSON(err, csvData) {
       			"<div class='usaidpop'>",
 
       
-            "<div id='",input.id,"-interior","' class='chapter-interior'>",
+            "<div class='chapter-interior'>",
       			"<div style='background-image:url(",input.Photo,");' class='center-cropped'></div>",
       
-            "<a class='school-icon'  target='new' href='",input.ContactURL,"'>",     
+            "<a class='school-icon' target='new' href='",input.ContactURL,"'>",     
             "<div style='background-image:url(",input.Image,");' class='center-cropped sm'></div>",
             "</a>",
       
