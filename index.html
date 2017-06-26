@@ -135,44 +135,44 @@
           display: inline;
         }
         
-  .arrow-wrap {
-  position:absolute;
-  z-index:1;
-  left:87%;
-  top:300px;
-  margin-left:-5em;
-  background:#111;
-  width:4em;
-  height:4em;
-  padding:2em 2em;
-  border-radius:50%;
-  font-size:8px;
-  display:block;
-}
+        .arrow-wrap {
+          position:absolute;
+          z-index:1;
+          left:84%;
+          top:330px;
+          margin-left:0;
+          background:#111;
+          width:3.5em;
+          height:3.5em;
+          padding:2em 2em;
+          border-radius:50%;
+          font-size:8px;
+          display:block;
+        }
 
-.arrow {
-  float:left;
-  position:relative;
-  width: 0px;
-  height: 0px;
-  border-style: solid;
-  border-width: 3em 3em 0 3em;
-  border-color: #ffffff transparent transparent transparent;
-  -webkit-transform:rotate(360deg)
-}
+      .arrow {
+        float:left;
+        position:relative;
+        width: 0px;
+        height: 0px;
+        border-style: solid;
+        border-width: 3em 3em 0 3em;
+        border-color: #ffffff transparent transparent transparent;
+        -webkit-transform:rotate(360deg)
+      }
 
-.arrow:after {
-  content:'';
-  position:absolute;
-  top:-3.2em;
-  left:-3em;
-  width: 0px;
-  height: 0px;
-  border-style: solid;
-  border-width: 3em 3em 0 3em;
-  border-color: #111 transparent transparent transparent;
-  -webkit-transform:rotate(360deg)
-}
+      .arrow:after {
+        content:'';
+        position:absolute;
+        top:-3.4em;
+        left:-3em;
+        width: 0px;
+        height: 0px;
+        border-style: solid;
+        border-width: 3em 3em 0 3em;
+        border-color: #111 transparent transparent transparent;
+        -webkit-transform:rotate(360deg)
+      }
     
     </style>
   
@@ -189,11 +189,10 @@
   <div id="features"><section id="starting-point" class="active">
     <div class="usaidpop"><h3>Chapters</h3><div class="chapter-interior"><div style="background-image:url(https://static.wixstatic.com/media/6dd283_d78721bf0291497db946d73eb8be26dc.jpg/v1/fill/w_632,h_136,al_c,q_80,usm_0.66_1.00_0.01/6dd283_d78721bf0291497db946d73eb8be26dc.png);" class="center-cropped"></div></div></div><div class="chapter-blurbs"><h3 class="truncate">YOUTHMAPPERS:</h3> 62 Chapters from 20 Countries 
  The chapters are below.<p>Scroll down for each chapter or click on a marker on the map.</p>
-    <a class="arrow-wrap" href="#content">
+    <a class="arrow-wrap" href="#texas-tech-university-interior">
 <span class="arrow"></span>
 </a>
     </div></div></section>&nbsp;</div>
-  <div id="content">&nbsp;</div>
 <script>
   //Raven.config('https://1a6e5463bde24c9ea2a9bf5f11200adb@sentry.io/162393').install()
 window.isBusyAutoScrolling=false;
@@ -467,7 +466,7 @@ function makeGeoJSON(err, csvData) {
       			"<div class='usaidpop'>",
 
       
-            "<div class='chapter-interior'>",
+            "<div id='",input.id,"-interior","' class='chapter-interior'>",
       			"<div style='background-image:url(",input.Photo,");' class='center-cropped'></div>",
       
             "<a class='school-icon' target='new' href='",input.ContactURL,"'>",     
