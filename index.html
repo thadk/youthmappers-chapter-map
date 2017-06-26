@@ -68,6 +68,9 @@
     			padding-left: 7px;
     			line-height: 20px;
     			display: inline-block;
+          float: left;
+          position:relative;
+          margin-top: -30px;
         }
         
         /*removeme*/
@@ -102,7 +105,11 @@
           text-align: right;
         }
         
-        h2.school-name {
+        a.school-icon {
+          text-align: right;
+        }
+        
+        h3.school-name {
           color: #5272B2;
         }
         
@@ -110,11 +117,14 @@
           color: #5272B2;
           font-style: italic;
           text-transform: capitalize;
+          font-size: 13px;
         }
         h3.place-name {
           color: #CBB492;
+          font-size: 11px;
         }
         .chapter-blurbs {
+          font-size: 11px;
           padding-left: 0.5em;
           padding-right: 0.5em;
           min-width: 320px;
@@ -418,8 +428,8 @@ function makeGeoJSON(err, csvData) {
     if (props.School !== undefined) {
      input = props;
      univ = props.School;
-     var websiteLink = ["<a target='new' href='"+input.FacebookWebsite+"'><h2 class='school-name truncate' title='",input.School,"'>",input.School,"</h2></a>"].join('');
-     var hiddenWebsiteLink = ["<h2 class='school-name truncate' title='",input.School,"'>", input.School,"</h2>"];
+     var websiteLink = ["<a target='new' href='"+input.FacebookWebsite+"'><h3 class='school-name truncate' title='",input.School,"'>",input.School,"</h3></a>"].join('');
+     var hiddenWebsiteLink = ["<h3 class='school-name truncate' title='",input.School,"'>", input.School,"</h3>"];
       
     return [
       			"<div class='usaidpop'>",
@@ -428,7 +438,7 @@ function makeGeoJSON(err, csvData) {
             "<div class='chapter-interior'>",
       			"<div style='background-image:url(",input.Photo,");' class='center-cropped'></div>",
       
-            "<a target='new' href='",input.ContactURL,"'>",     
+            "<a class='school-icon' target='new' href='",input.ContactURL,"'>",     
             "<div style='background-image:url(",input.Image,");' class='center-cropped sm'></div>",
             "</a>",
       
