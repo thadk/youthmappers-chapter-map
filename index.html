@@ -134,6 +134,46 @@
         .chapter-blurbs h3 {
           display: inline;
         }
+        
+  .arrow-wrap {
+  position:absolute;
+  z-index:1;
+  left:87%;
+  top:300px;
+  margin-left:-5em;
+  background:#111;
+  width:4em;
+  height:4em;
+  padding:2em 2em;
+  border-radius:50%;
+  font-size:8px;
+  display:block;
+}
+
+.arrow {
+  float:left;
+  position:relative;
+  width: 0px;
+  height: 0px;
+  border-style: solid;
+  border-width: 3em 3em 0 3em;
+  border-color: #ffffff transparent transparent transparent;
+  -webkit-transform:rotate(360deg)
+}
+
+.arrow:after {
+  content:'';
+  position:absolute;
+  top:-3.2em;
+  left:-3em;
+  width: 0px;
+  height: 0px;
+  border-style: solid;
+  border-width: 3em 3em 0 3em;
+  border-color: #111 transparent transparent transparent;
+  -webkit-transform:rotate(360deg)
+}
+    
     </style>
   
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.js'></script>
@@ -184,8 +224,14 @@
 <h4 class="font_4" style="font-size:22px; text-align:center;"><span style="font-size:22px;"><span class="color_11"><a href="https://docs.google.com/forms/d/1OQ2ux28CHF3HIVZCNmev9MwQw4YY2w8cbI5cc-UToNs/viewform" target="_blank" data-content="https://docs.google.com/forms/d/1OQ2ux28CHF3HIVZCNmev9MwQw4YY2w8cbI5cc-UToNs/viewform" data-type="external">Network</a></span></span></h4></div></div></div>
 <div id='map'></div>
   <div id="features"><section id="starting-point" class="active">
-    <div class="usaidpop"><h3>Chapters</h3><div class="chapter-interior"><div style="background-image:url(https://static.wixstatic.com/media/6dd283_d78721bf0291497db946d73eb8be26dc.jpg/v1/fill/w_632,h_136,al_c,q_80,usm_0.66_1.00_0.01/6dd283_d78721bf0291497db946d73eb8be26dc.png);" class="center-cropped"></div></div></div><div class="chapter-blurbs"><h3 class="truncate">YOUTHMAPPERS</h3> (TODO PLACEHOLDER NUM) 62 Chapters from 20 Countries 
- The chapters are below.<p>Scroll down for each chapter</p></div></div></section>&nbsp;</div>
+    <div class="usaidpop"><h3>Chapters</h3><div class="chapter-interior"><div style="background-image:url(https://static.wixstatic.com/media/6dd283_d78721bf0291497db946d73eb8be26dc.jpg/v1/fill/w_632,h_136,al_c,q_80,usm_0.66_1.00_0.01/6dd283_d78721bf0291497db946d73eb8be26dc.png);" class="center-cropped"></div></div></div><div class="chapter-blurbs"><h3 class="truncate">YOUTHMAPPERS:</h3> 62 Chapters from 20 Countries 
+ The chapters are below.<p>Scroll down for each chapter or click on a marker on the map.</p>
+    <a class="arrow-wrap" href="#content">
+<span class="arrow"></span>
+<span class="hint">scroll</span>
+</a>
+    </div></div></section>&nbsp;</div>
+  <div id="content">&nbsp;</div>
 <script>
   //Raven.config('https://1a6e5463bde24c9ea2a9bf5f11200adb@sentry.io/162393').install()
 window.isBusyAutoScrolling=false;
