@@ -139,7 +139,7 @@
           position:absolute;
           z-index:1;
           left:84%;
-          top:330px;
+          top:335px;
           margin-left:0;
           background:#111;
           width:3.6em;
@@ -175,6 +175,26 @@
         border-color: #111 transparent transparent transparent;
         -webkit-transform:rotate(360deg)
       }
+        
+        @media (min-width:481px)  { /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */ 
+          #map {
+            position:fixed;
+            width:50%;
+            top:0; 
+            bottom:0; 
+          }
+          #features {
+            width: 50%;
+            margin-left: 50%;
+            font-family: sans-serif;
+            overflow-y: scroll;
+            background-color: #fafafa;
+          }
+        	section {
+          	padding:  25px 10px;
+        	}
+        }
+
     
     </style>
   
