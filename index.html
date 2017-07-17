@@ -204,7 +204,7 @@
  
 <div id='map'></div>
   <div id="features"><section id="starting-point" class="active">
-    <div class="usaidpop"><h3></h3><div class="chapter-interior"><div style="" class="center-cropped"></div></div></div><div class="chapter-blurbs"><h3>Find a chapter near you by browsing the map or scrolling below.</h3> <p><A href="http://www.youthmappers.org/chapter-listing">Access the full list of chapters</a>.</p>
+    <div class="usaidpop"></div><div class="chapter-blurbs"><h3 h3 class='school-name' >Find a chapter near you by browsing the map or scrolling below.</h3> <p><A href="http://www.youthmappers.org/chapter-listing">Access the full list of chapters</a>.</p>
     <a class="arrow-wrap" href="#texas-tech-university-interior">
 <span class="arrow"></span>
 </a>
@@ -485,10 +485,10 @@ function makeGeoJSON(err, csvData) {
 
       
             "<div id='",input.id,"-interior","' class='chapter-interior'>",
-      			"<div style='background-image:'url(",input.Photo,");' class='center-cropped'></div>",
+      			"<div style='background-image:url(",input.Photo,");' class='center-cropped'></div>",
       
             "<a class='school-icon' target='new' href='",input.ContactURL,"'>",     
-            "<div style='background-image:'url(",input.Image,");' class='center-cropped sm'></div>",
+            "<div style='background-image:url(",input.Image,");' class='center-cropped sm'></div>",
             "</a>",
       
      
