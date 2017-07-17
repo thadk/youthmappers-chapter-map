@@ -198,8 +198,6 @@
       <script src='https://rawgit.com/thadk/9ca729c0f54dd0dc8ce338feaf2d4bf8/raw/53da50fc80f8868a495beea67e446221029bda69/csv2geojson.js'></script>
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
   <script src="https://cdn.ravenjs.com/3.14.2/raven.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazyloadxt/1.0.0/jquery.lazyloadxt.min.js"></script>
-
 
 </head>
 <body>
@@ -462,16 +460,11 @@ function makeGeoJSON(err, csvData) {
             }
        		}
         if (map.loaded()) {
-                              $(window).lazyLoadXT();
-
           onDataAndMapLoaded()
 
-          !function(a){var b=a.lazyLoadXT,c=b.bgAttr||"data-bg";b.selector+=",["+c+"]",a(document).on("lazyshow",function(b){var d=a(b.target);d.css("background-image","url('"+d.attr(c)+"')").removeAttr(c)})}(window.jQuery||window.Zepto);
         } else {
           map.on('load', onDataAndMapLoaded);            /* end on map load */
-                    $(window).lazyLoadXT();
 
-          !function(a){var b=a.lazyLoadXT,c=b.bgAttr||"data-bg";b.selector+=",["+c+"]",a(document).on("lazyshow",function(b){var d=a(b.target);d.css("background-image","url('"+d.attr(c)+"')").removeAttr(c)})}(window.jQuery||window.Zepto);
 
         } /* end map loaded conditional */    
       
@@ -492,10 +485,10 @@ function makeGeoJSON(err, csvData) {
 
       
             "<div id='",input.id,"-interior","' class='chapter-interior'>",
-      			"<div data-bg='url(",input.Photo,");' class='center-cropped'></div>",
+      			"<div style='background-image:'url(",input.Photo,");' class='center-cropped'></div>",
       
             "<a class='school-icon' target='new' href='",input.ContactURL,"'>",     
-            "<div data-bg='url(",input.Image,");' class='center-cropped sm'></div>",
+            "<div style='background-image:'url(",input.Image,");' class='center-cropped sm'></div>",
             "</a>",
       
      
