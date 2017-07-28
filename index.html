@@ -193,8 +193,8 @@
     
     </style>
   
-    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.js'></script>
-    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.css' rel='stylesheet' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.39.1/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.39.1/mapbox-gl.css' rel='stylesheet' />
       <script src='https://rawgit.com/thadk/9ca729c0f54dd0dc8ce338feaf2d4bf8/raw/53da50fc80f8868a495beea67e446221029bda69/csv2geojson.js'></script>
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
   <script src="https://cdn.ravenjs.com/3.14.2/raven.min.js"></script>
@@ -566,12 +566,38 @@ function isElementOnScreen(id) {
     var bounds = element.getBoundingClientRect();
     return bounds.top < window.innerHeight && bounds.bottom > 0;
 }
-  
+var markerHeight = 10, markerRadius = 10, linearOffset = 25;
+var popupOffsets = {
+ 'top': [0, 0],
+ 'top-left': [0,0],
+ 'top-right': [0,0],
+ 'bottom': [0, -markerHeight],
+ 'bottom-left': [linearOffset, (markerHeight - markerRadius + linearOffset) * -1],
+ 'bottom-right': [-linearOffset, (markerHeight - markerRadius + linearOffset) * -1],
+ 'left': [markerRadius, (markerHeight - markerRadius) * -1],
+ 'right': [-markerRadius, (markerHeight - markerRadius) * -1]
+ };
+  var hoverPopup = new mapboxgl.Popup({
+    closeButton: false,
+    closeOnClick: true,
+    offset: popupOffsets
+});
   // Use the same approach as below to indicate that the symbols are clickable
 // by changing the cursor style to 'pointer'.
-  map.on('mousemove', function (e) {/ *  */
+  map.on('mousemove', function (e) {
     var featuresShown = map.queryRenderedFeatures(e.point, { layers: ['centers']  });
     map.getCanvas().style.cursor = (featuresShown.length) ? 'pointer' : '';
+    if (!featuresShown && !featuresShown.length) {
+      hoverPopup.remove();
+      return;
+    }
+    var feature = featuresShown[0];
+  
+  if (feature && feature.properties && feature.properties.type !== 'country') {	
+    hoverPopup.setLngLat(feature.geometry.coordinates)
+       .setHTML(feature.properties.School)
+        .addTo(map);
+  }
                                     
     if (featuresShown.length) { 
       map.setFilter("centers-hover", ["==", "id", featuresShown[0].properties.id]);
