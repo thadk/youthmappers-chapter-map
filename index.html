@@ -606,6 +606,10 @@ var popupOffsets = {
     closeOnClick: true,
     offset: popupOffsets
 });
+  var preventHover = false;
+  map.on('touchstart', function(e) {
+        preventMouseover = true;
+  });
   // Use the same approach as below to indicate that the symbols are clickable
 // by changing the cursor style to 'pointer'.
   map.on('mousemove', function (e) {
@@ -617,7 +621,7 @@ var popupOffsets = {
     }
     var feature = featuresShown[0];
   
-  if (feature && feature.properties && feature.properties.type !== 'country') {	
+  if (feature && feature.properties && feature.properties.type !== 'country' && !preventMouseover) {	
     hoverPopup.setLngLat(feature.geometry.coordinates)
        .setHTML(feature.properties.School)
         .addTo(map);
