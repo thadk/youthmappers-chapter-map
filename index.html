@@ -22,10 +22,11 @@
           margin-left: 66%;
           font-family: sans-serif;
           overflow-y: scroll;
+          overflow-x: hidden;
           background-color: #fafafa;
         }
         section {
-          padding:  25px 0 50px 0;
+          padding:  25px 0 50px 25px;
           line-height: 25px;
           border-bottom: 1px solid #ddd;
           opacity: 0.40;
@@ -138,8 +139,8 @@
         .arrow-wrap {
           position:absolute;
           z-index:1;
-          left:84%;
-          top:335px;
+          left:80%;
+          top:160px;
           margin-left:0;
           background:#111;
           width:3.6em;
@@ -189,6 +190,9 @@
           	padding:  25px 10px;
         	}
           .arrow,.arrow:after,.arrow-wrap {
+            display:none;
+          }
+          .chapter-blurbs {
             display:none;
           }
         }
