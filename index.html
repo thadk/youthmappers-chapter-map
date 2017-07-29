@@ -608,6 +608,7 @@ var popupOffsets = {
 });
   var preventMouseover = false;
   map.on('touchstart', function(e) {
+    /* disable popups for mobile -- they override click-to-go navigation */
         preventMouseover = true;
   });
   // Use the same approach as below to indicate that the symbols are clickable
