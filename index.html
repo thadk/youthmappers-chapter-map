@@ -606,7 +606,7 @@ var popupOffsets = {
     closeOnClick: true,
     offset: popupOffsets
 });
-  var preventHover = false;
+  var preventMouseover = false;
   map.on('touchstart', function(e) {
         preventMouseover = true;
   });
@@ -621,7 +621,7 @@ var popupOffsets = {
     }
     var feature = featuresShown[0];
   
-  if (feature && feature.properties && feature.properties.type !== 'country' ) {	
+  if (!preventMouseover && feature && feature.properties && feature.properties.type !== 'country' ) {	
     hoverPopup.setLngLat(feature.geometry.coordinates)
        .setHTML(feature.properties.School)
         .addTo(map);
