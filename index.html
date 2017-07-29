@@ -621,7 +621,7 @@ var popupOffsets = {
     }
     var feature = featuresShown[0];
   
-  if (feature && feature.properties && feature.properties.type !== 'country' && !preventMouseover) {	
+  if (feature && feature.properties && feature.properties.type !== 'country' ) {	
     hoverPopup.setLngLat(feature.geometry.coordinates)
        .setHTML(feature.properties.School)
         .addTo(map);
