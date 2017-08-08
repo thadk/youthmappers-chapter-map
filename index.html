@@ -245,14 +245,17 @@
 </a>
     </div></div></section></div>
 <script>
-  //Raven.config('https://1a6e5463bde24c9ea2a9bf5f11200adb@sentry.io/162393').install()
+  Raven.config('https://1a6e5463bde24c9ea2a9bf5f11200adb@sentry.io/162393').install()
 window.isBusyAutoScrolling=false;
 
 mapboxgl.accessToken = 'pk.eyJ1IjoidXNhaWRnZW9jZW50ZXIiLCJhIjoiY2lyMjk5eGlkMDMwdWZxbTh4dmx4Z2tvbyJ9.TC7ZUzMtmRYB9aQRFOg2FQ';
   
 /* https://spreadsheets.google.com/feeds/list/13yswnN49P0dsO5BS2FJYaVUIjsnuWbzA3UxvhcLUsYI/1/public/values?alt=json */
   if (!mapboxgl.supported()) {
-    map.innerHTML ='<div><h1>Sorry</h1>, Your browser does not support Mapbox GL. Please <a href="www.youthmappers.org/chapters-feb17">try our basic map</a>.';
+    $('#starting-point').html('<div><h1>Sorry</h1>Your browser does not support Mapbox GL. Please <a href="www.youthmappers.org/chapters-feb17">try our basic map</a>.')
+     $('.loading').remove();
+
+    throw new Error("Something went badly wrong!");
 } else {
     
 var map = new mapboxgl.Map({
@@ -607,6 +610,8 @@ function isElementOnScreen(id) {
     var bounds = element.getBoundingClientRect();
     return bounds.top < window.innerHeight && bounds.bottom > 0;
 }
+  
+  
 var markerHeight = 10, markerRadius = 10, linearOffset = 25;
 var popupOffsets = {
  'top': [0, 0],
@@ -623,11 +628,15 @@ var popupOffsets = {
     closeOnClick: true,
     offset: popupOffsets
 });
+  
+  
   var preventMouseover = false;
   map.on('touchstart', function(e) {
     /* disable popups for mobile -- they override click-to-go navigation */
         preventMouseover = true;
   });
+  
+  
   // Use the same approach as below to indicate that the symbols are clickable
 // by changing the cursor style to 'pointer'.
   map.on('mousemove', function (e) {
