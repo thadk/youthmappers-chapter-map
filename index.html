@@ -13,17 +13,19 @@
         }
         #map {
           position:fixed;
-          width:500px;
+          width:624px;
           top:0; 
           bottom:0; 
+          left:0;
         }
         #features {
           width: 400px;
-          margin-left: 500px;
+          margin-left: 614px;
           font-family: sans-serif;
           overflow-y: scroll;
           overflow-x: hidden;
           background-color: #fafafa;
+          margin-top: -10px;
         }
         section {
           padding:  50px 0 50px 25px;
@@ -148,8 +150,8 @@
         .arrow-wrap {
           position:absolute;
           z-index:1;
-          left:82.5%;
-          top:160px;
+          left:790px;
+          top:170px;
           margin-left:0;
           background:#111;
           width:3.6em;
@@ -238,7 +240,7 @@
     <a class="arrow-wrap" href="#texas-tech-university-interior">
 <span class="arrow"></span>
 </a>
-    </div></div></section>&nbsp;</div>
+    </div></div><img src='https://dl.dropbox.com/s/b6ahaenhwgazpfb/spinner-downsized.gif'/></section></div>
 <script>
   //Raven.config('https://1a6e5463bde24c9ea2a9bf5f11200adb@sentry.io/162393').install()
 window.isBusyAutoScrolling=false;
@@ -488,7 +490,7 @@ function makeGeoJSON(err, csvData) {
                 }
               });
             }
-       		}
+       		} 
         if (map.loaded()) {
           onDataAndMapLoaded()
 
@@ -559,10 +561,7 @@ window.onscroll = function() {
       var chapterNames = window.rawFeaturesList.map(function(a) {
         return a.properties.id;
       });
-    
-    
 
-    
       for (var i = 0; i < chapterNames.length; i++) {
           var chapterName = chapterNames[i];
 
