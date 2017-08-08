@@ -151,7 +151,7 @@
         .arrow-wrap {
           position:absolute;
           z-index:1;
-          left:790px;
+          left:795px;
           top:170px;
           margin-left:0;
           background:#111;
@@ -251,7 +251,10 @@ window.isBusyAutoScrolling=false;
 mapboxgl.accessToken = 'pk.eyJ1IjoidXNhaWRnZW9jZW50ZXIiLCJhIjoiY2lyMjk5eGlkMDMwdWZxbTh4dmx4Z2tvbyJ9.TC7ZUzMtmRYB9aQRFOg2FQ';
   
 /* https://spreadsheets.google.com/feeds/list/13yswnN49P0dsO5BS2FJYaVUIjsnuWbzA3UxvhcLUsYI/1/public/values?alt=json */
-  
+  if (!mapboxgl.supported()) {
+    map.innerHTML ='<div><h1>Sorry</h1>, Your browser does not support Mapbox GL. Please <a href="www.youthmappers.org/chapters-feb17">try our basic map</a>.';
+} else {
+    
 var map = new mapboxgl.Map({
     container: 'map',
     /*pitch: 45,
@@ -260,6 +263,8 @@ var map = new mapboxgl.Map({
     center: [-12, 15],
     zoom: 1
 });
+  
+}
   
   /* polyfill for find and Object.assign in case of IE11 */
   if (typeof Object.assign != 'function') {
