@@ -13,13 +13,13 @@
         }
         #map {
           position:fixed;
-          width:65%;
+          width:500px;
           top:0; 
           bottom:0; 
         }
         #features {
-          width: 35%;
-          margin-left: 66%;
+          width: 400px;
+          margin-left: 500px;
           font-family: sans-serif;
           overflow-y: scroll;
           overflow-x: hidden;
@@ -46,7 +46,7 @@
           margin-bottom:.5em;
         }
         .truncate {
-            width: 320px;
+            width: 330px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -101,10 +101,16 @@
           min-width: 39px;
 
         }
-        
-        div.chapter-interior {
-          width: 320px;
+       div.chapter-interior {
+          width: 340px;
+          text-align: center; 
+          /* text-align here is only way to affect divs inside */
+
+        } 
+        div.chapter-interior-logo {
           text-align: right; 
+          display:block;
+          margin-right:0.5em;
           /* text-align here is only way to affect divs inside */
 
         }
@@ -501,20 +507,23 @@ function makeGeoJSON(err, csvData) {
     if (props.School !== undefined) {
      input = props;
      univ = props.School;
-     var websiteLink = ["<a target='new' href='"+input.FacebookWebsite+"'><h3 class='school-name truncate' title='",input.School,"'>",input.School,"</h3></a>"].join('');
-     var hiddenWebsiteLink = ["<h3 class='school-name truncate' title='",input.School,"'>", input.School,"</h3>"].join('');
+     var websiteLink = ["<a target='new' href='"+input.FacebookWebsite+"'><h3 class='school-name truncate' title='",input.School.replace(/["']/g, ""),"'>",input.School,"</h3></a>"].join('');
+     var hiddenWebsiteLink = ["<h3 class='school-name truncate' title='",input.School.replace(/["']/g, ""),"'>", input.School,"</h3>"].join('');
       
     return [
       			"<div class='usaidpop'>",
 
       
             "<div id='",input.id,"-interior","' class='chapter-interior'>",
+
       			"<div style='background-image:url(",input.Photo,");' class='center-cropped'></div>",
-      
-            "<a class='school-icon' target='new' href='",input.ContactURL,"'>",     
+      "</div>",
+                        "<div id='",input.id,"-interior-logo","' class='chapter-interior-logo'>",
+            "<a class='school-icon' target='new' href='",input.ContactURL,"'>",   
             "<div style='background-image:url(",input.Image,");' class='center-cropped sm'></div>",
             "</a>",
-      
+                              "</div>",
+
      
               "<div class='ym-links'>",
                 (input.FacebookWebsite !== '' ? websiteLink
