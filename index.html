@@ -593,7 +593,7 @@ function setActiveChapter(chapterName) {
     if (chapterName === activeChapterName) return;
   //	querySourceFeatures did not do the right thing here: was only shown visibile items
 		var target = rawFeaturesList.find(function(a) {return a.properties.id === chapterName})
-    map.flyTo({center:target.geometry.coordinates, zoom:(target.properties.zoom ? target.properties.zoom : 8)});
+    map.flyTo({center:target.geometry.coordinates, zoom:(target.properties.zoom ? target.properties.zoom : 7)});
 
  document.getElementById(chapterName).setAttribute('class', 'active');
     document.getElementById(activeChapterName).setAttribute('class', '');
