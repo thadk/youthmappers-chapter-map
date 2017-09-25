@@ -1,4 +1,4 @@
-The source code for youthmappers.org/chapters main version that uses Mapbox GL.js
+The source code for http://youthmappers.org/chapters main version that uses Mapbox GL.js
 
 The fallback version of the site that uses basic Mapbox.js is at: https://gist.github.com/thadk/be6de2478c8aae7656a582895de8ff08/edit
 
