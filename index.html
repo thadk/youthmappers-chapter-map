@@ -277,11 +277,14 @@ var map = new mapboxgl.Map({
 }
   
   $(document).ready(function() {
-    		var cachedUrl = 'https://gist.githubusercontent.com/thadk/9ca729c0f54dd0dc8ce338feaf2d4bf8/raw/chapters-cache.csv';
-      	var myUrl = 'https://youthmap-chapter-mapproxy.herokuapp.com/docs.google.com/spreadsheets/d/13yswnN49P0dsO5BS2FJYaVUIjsnuWbzA3UxvhcLUsYI/export?format=csv&id=13yswnN49P0dsO5BS2FJYaVUIjsnuWbzA3UxvhcLUsYI'
-    getCSV(cachedUrl, makeGeoJSON);
+        		//var cachedUrl2 = 'https://qzk6eqs975.execute-api.us-east-1.amazonaws.com/beta/lambda'; 
+    		//var cachedUrl = 'https://qzk6eqs975.execute-api.us-east-1.amazonaws.com/beta'; 
+      	var myUrl = 'https://youthmap-chapter-mapproxy.herokuapp.com/docs.google.com/spreadsheets/d/13yswnN49P0dsO5BS2FJYaVUIjsnuWbzA3UxvhcLUsYI/export?format=csv&amp;id=13yswnN49P0dsO5BS2FJYaVUIjsnuWbzA3UxvhcLUsYI'
+    //gist or AWS proxy
+    //getCSV(cachedUrl, makeGeoJSON);
 
-//    getCSV(myUrl, makeGeoJSON);
+    //heroku proxy (needs to sleep 6hr/day):
+    getCSV(myUrl, makeGeoJSON);
 });
 
 function makeGeoJSON(err, csvData) {

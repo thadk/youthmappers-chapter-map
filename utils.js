@@ -2,6 +2,7 @@
     var xhr = new XMLHttpRequest();
     xhr.open('GET', url, true);
     xhr.setRequestHeader('Accept', 'text/plain');
+
     xhr.onerror = function(e) {
         callback(e);
     };
