@@ -12,7 +12,7 @@ It relies on Amazon Web Services API Gateway `resource` to Google Sheets set up 
 Where the HTTP URL for the spreadsheet to use is: GET https://docs.google.com/spreadsheets/d/13yswnN49P0dsO5BS2FJYaVUIjsnuWbzA3UxvhcLUsYI/export?format=csv&amp;id=13yswnN49P0dsO5BS2FJYaVUIjsnuWbzA3UxvhcLUsYI
 
 * Wherever possible, change `application/json` to `text/csv`.
-* Ensure  Access-Control-Allow-Origin is set for the "Integration Response">`Header Mappings` section.
+* Ensure  Access-Control-Allow-Origin is set to `'*'` for the "Integration Response">`Header Mappings` section.
 
 * Also use the <a href="http://docs.aws.amazon.com/apigateway/latest/developerguide/how-to-cors.html#how-to-cors-console">"Enable CORS"</a> action.
 
