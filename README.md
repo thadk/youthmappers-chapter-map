@@ -21,10 +21,10 @@ Where the HTTP URL for the spreadsheet to use is: GET https://docs.google.com/sp
 The fallback version of the site that uses basic Mapbox.js is at: https://gist.github.com/thadk/be6de2478c8aae7656a582895de8ff08
 A version of this on Wix is hardlinked to by the application and displayed when e.g. there are no graphics drivers installed in Windows and the user is on Chrome.
 
-##Template for schools
-The template shown for each school is in the templatize() function.
+## Template for schools
+The HTML template shown for each school is in the templatize() function.
 
-##Updating Wix
+## Updating Wix
 Select-All in the index.html and paste into the iframe embed on Wix to install a new version. Mapbox GL acts differently in an iframe on mobile than it does running normally on this staging area server with BlockBuilder or Bl.ocks.org.
 
 ### External javascript
