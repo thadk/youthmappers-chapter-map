@@ -225,8 +225,8 @@
     
     </style>
   
-    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.39.1/mapbox-gl.js'></script>
-    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.39.1/mapbox-gl.css' rel='stylesheet' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.41.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.41.0/mapbox-gl.css' rel='stylesheet' />
       <script src='https://rawgit.com/thadk/9ca729c0f54dd0dc8ce338feaf2d4bf8/raw/53da50fc80f8868a495beea67e446221029bda69/csv2geojson.js'></script>
    <script src='https://rawgit.com/thadk/9ca729c0f54dd0dc8ce338feaf2d4bf8/raw/51141006f47c467da9f21dcaf8f5b525ed2db3e3/utils.js'></script>
   
@@ -248,7 +248,7 @@
     </div></div></section></div>
 <script>
  
-  //Raven.config('https://ed4accda3f6b46039ad6f9cf52055a4e@sentry.io/217947').install()
+  Raven.config('https://ed4accda3f6b46039ad6f9cf52055a4e@sentry.io/217947').install()
  
   //OLDRaven.config('https://1a6e5463bde24c9ea2a9bf5f11200adb@sentry.io/162393').install()
 window.isBusyAutoScrolling=false;
@@ -277,8 +277,8 @@ var map = new mapboxgl.Map({
 }
   
   $(document).ready(function() {
-       	//See readme to replicate AWS API Gateway configuration
-    		var awsProxyUrl = 'https://qzk6eqs975.execute-api.us-east-1.amazonaws.com/beta';
+    //See readme to replicate AWS API Gateway configuration
+    var awsProxyUrl = 'https://qzk6eqs975.execute-api.us-east-1.amazonaws.com/beta';
 
     //gist or AWS proxy
     getCSV(awsProxyUrl, makeGeoJSON);
