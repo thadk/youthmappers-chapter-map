@@ -15,6 +15,7 @@ Where the HTTP URL for the spreadsheet to use is: GET https://docs.google.com/sp
 * Ensure  Access-Control-Allow-Origin is set to `'*'` for the "Integration Response">`Header Mappings` section.
 
 * Also use the <a href="http://docs.aws.amazon.com/apigateway/latest/developerguide/how-to-cors.html#how-to-cors-console">"Enable CORS"</a> action.
+* Place the URL offered in `stage` into the `awsProxyUrl` variable in `index.html`.
 
 
 ## Fallback version for substandard WebGL browsers
@@ -25,7 +26,8 @@ A version of this on Wix is hardlinked to by the application and displayed when 
 The HTML template shown for each school is in the templatize() function.
 
 ## Updating Wix
-Select-All in the index.html and paste into the iframe embed on Wix to install a new version. Mapbox GL acts differently in an iframe on mobile than it does running normally on this staging area server with BlockBuilder or Bl.ocks.org.
+Select-All of the `index.html` code in GitHub and paste into the iframe embed text area on the Chapter page of Wix to install a new version. 
+Mapbox GL acts differently in an iframe on mobile than it does running normally on this staging area server with BlockBuilder or Bl.ocks.org.
 
 ### External javascript
 There are 2 small javascript files which are referenced by the index.html and hosted from this repository using rawgit.com -- including `util.js` and  `csv2json.js` . These could be brought inline to the `index.html` if needed or re-hosted in a new repository if they need to be modified.
