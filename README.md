@@ -27,6 +27,8 @@ The HTML template shown for each school is in the templatize() function.
 
 ## Updating Wix
 Select-All of the `index.html` code in GitHub and paste into the iframe embed text area on the Chapter page of Wix to install a new version. 
+
+
 Mapbox GL acts differently in an iframe on mobile than it does running normally on this staging area server with BlockBuilder or Bl.ocks.org.
 
 ### External javascript
